@@ -1,0 +1,49 @@
+{
+  "name": "karibsen-v2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "eponyme:check": "eponyme check --client server/utils/prisma.ts",
+    "eponyme:article": "node scripts/generate-article-import.mjs",
+    "lint": "eslint .",
+    "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "@iconify-json/lucide": "^1.2.121",
+    "@iconify-json/simple-icons": "^1.2.92",
+    "@karibsen/eponyme": "0.9.0-nightly.20260813",
+    "@karibsen/eslint-config": "^0.1.0",
+    "@lisse/vue": "^0.6.3",
+    "@nuxt/fonts": "0.14.0",
+    "@nuxt/image": "2.1.0",
+    "@nuxt/ui": "^4.10.0",
+    "@nuxtjs/seo": "5.3.14",
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "@takumi-rs/core": "^2.10.0",
+    "@vueuse/core": "^14.4.0",
+    "@vueuse/nuxt": "^14.4.0",
+    "motion-v": "^2.3.0",
+    "nuxt": "^4.5.1",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@eponyme/cli": "^0.1.1",
+    "@iconify-json/heroicons": "^1.2.3",
+    "@iconify-json/mingcute": "^1.2.8",
+    "@nuxt/eslint": "^1.16.0",
+    "dotenv": "^17.4.2",
+    "eslint": "^10.8.0",
+    "prisma": "^7.9.1",
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.9"
+  },
+  "packageManager": "pnpm@11.18.0"
+}

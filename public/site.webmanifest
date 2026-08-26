@@ -1,0 +1,22 @@
+{
+  "name": "Karibsen",
+  "short_name": "Karibsen",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png?v=202605021",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png?v=202605021",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "start_url": "/",
+  "display": "standalone"
+}

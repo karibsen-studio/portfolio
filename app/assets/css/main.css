@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Stratford Serial', Inter, Geist, sans-serif;
+
+  --color-foreground-100: #262626;
+  --color-foreground-200: #262626;
+  --color-foreground-300: #737373;
+
+  --ui-bg-muted: white;
+  --ui-text: var(--color-foreground-200);
+  --ui-bg-inverted: black;
+
+  --color-theme-50: #fff5ec;
+  --color-theme-100: #ffe9d3;
+  --color-theme-200: #ffcea5;
+  --color-theme-300: #ffad6d;
+  --color-theme-400: #ff7f32;
+  --color-theme-500: #ff5c0a;
+  --color-theme-600: #ff4400;
+  --color-theme-700: #cc2e02;
+  --color-theme-800: #a1250b;
+  --color-theme-900: #82210c;
+  --color-theme-950: #460d04;
+
+  --color-border-100: #f0f0f0;
+
+  --container-section: 1480px;
+
+  --tracking-heading: -.07em;
+  --leading-heading: 120%;
+
+  --tracking-paragraph: -.02em;
+}
+
+body, html {
+  @apply selection:bg-theme-500/20 selection:text-theme-800
+}
+
+p {
+  @apply font-medium;
+}
+
+.karibsen-prose {
+  @apply flex flex-col gap-5 md:text-lg leading-relaxed text-foreground-300 mb-20;
+}
+
+.karibsen-prose h2 {
+  @apply mt-10 mb-4 font-sans text-3xl font-semibold tracking-heading leading-heading text-black sm:text-4xl;
+}
+
+.karibsen-prose p {
+  @apply my-2
+}
+
+.karibsen-prose h3 {
+  @apply mt-10 mb-4 font-sans text-2xl sm:text-3xl tracking-heading leading-heading font-semibold text-foreground-200;
+}
+
+.karibsen-prose a {
+  @apply underline underline-offset-4 hover:text-theme-600;
+}
+
+.karibsen-prose ul {
+  @apply flex list-disc flex-col gap-2 pl-6;
+}
+
+.karibsen-prose ol {
+  @apply flex list-decimal flex-col gap-2 pl-6;
+}
+
+.karibsen-prose blockquote {
+  @apply border-l-4 border-theme-500 pl-5 italic;
+}
+
+.karibsen-prose img {
+  @apply w-full rounded-2xl my-10;
+}
+
+.karibsen-prose strong {
+  @apply font-semibold text-black;
+}

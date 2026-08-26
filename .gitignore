@@ -1,0 +1,28 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+.seo-cache/
+dist
+
+# Node dependencies
+node_modules
+
+# Prisma client generated outside node_modules
+generated
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
