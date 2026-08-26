@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../server/generated/prisma"
 }
 
 datasource db {
@@ -9,15 +9,15 @@ datasource db {
 
 // <eponyme-schema>
 model Eponyme {
-  name                 String               @id
-  draft                Json                 @db.JsonB
-  published            Json                 @db.JsonB
+  name                 String              @id
+  draft                Json                @db.JsonB
+  published            Json                @db.JsonB
   status               String
   publishedAt          DateTime?
   scheduledPublishAt   DateTime?
   scheduledUnpublishAt DateTime?
-  createdAt            DateTime             @default(now())
-  updatedAt            DateTime             @updatedAt
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
   deletedAt            DateTime?
   versions             EponymeVersion[]
   index                EponymeEntryIndex[]
@@ -123,4 +123,5 @@ model EponymeSchema {
 
   @@map("_eponyme_schema")
 }
+
 // </eponyme-schema>
