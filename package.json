@@ -32,6 +32,7 @@
     "@vueuse/nuxt": "^14.4.0",
     "motion-v": "^2.3.0",
     "nuxt": "^4.5.1",
+    "pg": "^8.23.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
@@ -39,6 +40,7 @@
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/mingcute": "^1.2.8",
     "@nuxt/eslint": "^1.16.0",
+    "@types/pg": "^8.23.1",
     "dotenv": "^17.4.2",
     "eslint": "^10.8.0",
     "prisma": "^7.9.1",
