@@ -28,8 +28,6 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': { prerender: true },
-
     '/start-a-project': { redirect: { to: '/demarrer-un-projet', statusCode: 301 } },
     '/devis': { redirect: { to: '/demarrer-un-projet', statusCode: 301 } },
     '/legal-notice': { redirect: { to: '/mentions-legales', statusCode: 301 } },
