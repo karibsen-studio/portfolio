@@ -42,11 +42,6 @@ export default defineNuxtConfig({
 
     '/articles': { redirect: { to: '/blog', statusCode: 301 } },
     '/articles/**': { redirect: { to: '/blog/**', statusCode: 301 } },
-    '/composants/**': {
-      headers: {
-        'x-robots-tag': 'noindex, nofollow'
-      }
-    }
   },
 
   compatibilityDate: '2026-06-30',

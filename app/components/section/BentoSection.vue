@@ -42,7 +42,7 @@ const headingId = useId()
           class="size-7 mb-2 text-white"
           name="heroicons:video-camera"
         />
-        <h3 class="text-lg font-semibold text-white">
+        <h3 class="text-lg font-semibold font-sans text-white">
           Échange & cadrage
         </h3>
         <p class="text-white">
@@ -51,7 +51,7 @@ const headingId = useId()
       </div>
       <div class="lg:col-span-8 border border-border-100 rounded-md flex flex-col gap-8 overflow-hidden">
         <div class="pt-8 px-8 flex flex-col gap-2">
-          <h3 class="text-lg font-semibold text-black">
+          <h3 class="text-lg font-semibold font-sans text-black">
             Conception & validation
           </h3>
           <p class="text-foreground-300">
@@ -68,7 +68,7 @@ const headingId = useId()
           <BentoDevelopment />
         </div>
         <div class="pb-8 px-8 flex flex-col gap-2">
-          <h3 class="text-lg font-semibold text-black">
+          <h3 class="text-lg font-semibold font-sans text-black">
             Développement
           </h3>
           <p class="text-foreground-300">
@@ -83,7 +83,7 @@ const headingId = useId()
             class="size-7 mb-2 text-black"
             name="heroicons:globe-alt"
           />
-          <h3 class="text-lg font-semibold text-black">
+          <h3 class="text-lg font-semibold font-sans text-black">
             Mise en ligne & suivi
           </h3>
           <p class="text-foreground-300">

@@ -52,7 +52,7 @@ p {
 }
 
 .karibsen-prose p {
-  @apply my-2
+  @apply my-2 font-sans
 }
 
 .karibsen-prose h3 {

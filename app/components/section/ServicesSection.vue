@@ -176,7 +176,7 @@ const displayedServices = computed(() => props.services.length ? props.services 
 
     <slot>
       <div class="relative z-10 mx-auto flex max-w-xl flex-col items-center gap-3.5">
-        <h3 class="text-center text-xl font-semibold text-black">
+        <h3 class="text-center text-xl font-sans font-semibold text-black">
           Votre besoin ne rentre pas dans une
           <span class="bg-theme-500/5 border-[0.5px] border-theme-800/20 text-theme-900 px-1.5 py-px">case</span> ?
         </h3>
