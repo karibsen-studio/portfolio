@@ -8,10 +8,12 @@ if (!connectionString) {
   throw new Error("DATABASE_URL is required to initialize Prisma");
 }
 
+const RELAXABLE_SSL_MODES = new Set(["require", "prefer"]);
+
 const url = new URL(connectionString);
 const sslMode = url.searchParams.get("sslmode");
 
-if (sslMode && sslMode !== "disable") {
+if (sslMode && RELAXABLE_SSL_MODES.has(sslMode) && !url.searchParams.has("sslrootcert")) {
   url.searchParams.set("sslmode", "no-verify");
 }
 
