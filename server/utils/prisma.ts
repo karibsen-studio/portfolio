@@ -8,8 +8,15 @@ if (!connectionString) {
   throw new Error("DATABASE_URL is required to initialize Prisma");
 }
 
+const url = new URL(connectionString);
+const sslMode = url.searchParams.get("sslmode");
+
+if (sslMode && sslMode !== "disable") {
+  url.searchParams.set("sslmode", "no-verify");
+}
+
 const adapter = new PrismaPg({
-  connectionString,
+  connectionString: url.toString(),
 });
 
 const globalForPrisma = globalThis as unknown as {
