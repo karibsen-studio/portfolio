@@ -4,6 +4,7 @@ import ServicesSection from '~/components/section/ServicesSection.vue'
 import WhyKaribsenSection from '~/components/section/WhyKaribsenSection.vue'
 import CTASection from '~/components/section/CTASection.vue'
 import ProcessSection from '~/components/section/ProcessSection.vue'
+import PromoPopup from '~/components/ui/PromoPopup.vue'
 
 useSeoMeta({
   title: 'Agence web Guadeloupe : création de sites à distance | Karibsen',
@@ -77,6 +78,11 @@ const process = [
       title="Parlons de ce que votre site peut faire de mieux pour vous."
       cta-label="Démarrer un projet"
       cta-to="/demarrer-un-projet"
+    />
+
+    <PromoPopup
+      city="Guadeloupe"
+      where="en Guadeloupe"
     />
   </div>
 </template>

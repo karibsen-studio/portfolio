@@ -30,6 +30,7 @@ const menuLinks = [
 const menuDialog = ref<HTMLDialogElement | null>(null)
 const menuButton = ref<HTMLButtonElement | null>(null)
 const isMenuOpen = ref(false)
+const isPanelShown = ref(false)
 const menuTitleId = useId()
 const menuPanelId = useId()
 const scrollLockTarget = computed(() => import.meta.client ? document.body : null)
@@ -45,7 +46,7 @@ function finishClosingMenu(restoreFocus: boolean) {
   if (restoreFocus) menuButton.value?.focus()
 }
 
-function openMenu() {
+async function openMenu() {
   if (closeMenuTimer) {
     clearTimeout(closeMenuTimer)
     closeMenuTimer = undefined
@@ -55,17 +56,32 @@ function openMenu() {
 
   isMenuOpen.value = true
   isScrollLocked.value = true
+
+  if (shouldReduceMotion.value) {
+    isPanelShown.value = true
+    return
+  }
+
+  await nextTick()
+
+  // Le dialog vient de passer de display:none à display:block. Sans lecture
+  // forçant le reflow, l'état fermé (translate-x-full) n'est jamais calculé et
+  // la transition ne joue pas : le panneau apparaîtrait déjà en place.
+  void menuDialog.value?.offsetWidth
+
+  if (isMenuOpen.value) isPanelShown.value = true
 }
 
 function closeMenu(restoreFocus = true) {
   if (!isMenuOpen.value) return
 
   isMenuOpen.value = false
+  isPanelShown.value = false
 
   if (closeMenuTimer) clearTimeout(closeMenuTimer)
   closeMenuTimer = setTimeout(
     () => finishClosingMenu(restoreFocus),
-    shouldReduceMotion.value ? 0 : 420
+    shouldReduceMotion.value ? 0 : 450
   )
 }
 
@@ -76,6 +92,7 @@ function toggleMenu() {
 
 function handleDialogClose() {
   isMenuOpen.value = false
+  isPanelShown.value = false
   isScrollLocked.value = false
 }
 
@@ -86,7 +103,7 @@ function getLinkTransition(index: number) {
     type: 'spring',
     bounce: 0,
     visualDuration: 0.4,
-    delay: isMenuOpen.value ? 0.12 + index * 0.065 : 0
+    delay: isPanelShown.value ? 0.12 + index * 0.065 : 0
   } as const
 }
 
@@ -312,13 +329,15 @@ const menuBackdropTransition = { duration: 0.25, ease: 'easeOut' } as const
           >
             <motion.span
               aria-hidden="true"
-              class="absolute h-0.5 w-8 rounded-full bg-current"
+              class="absolute h-0.5 w-8 rounded-full bg-current [transform:translateY(-4px)]"
+              :initial="false"
               :animate="{ y: isMenuOpen ? 0 : -4, rotate: isMenuOpen ? 45 : 0 }"
               :transition="menuPanelTransition"
             />
             <motion.span
               aria-hidden="true"
-              class="absolute h-0.5 w-8 rounded-full bg-current"
+              class="absolute h-0.5 w-8 rounded-full bg-current [transform:translateY(4px)]"
+              :initial="false"
               :animate="{ y: isMenuOpen ? 0 : 4, rotate: isMenuOpen ? -45 : 0 }"
               :transition="menuPanelTransition"
             />
@@ -362,18 +381,14 @@ const menuBackdropTransition = { duration: 0.25, ease: 'easeOut' } as const
         aria-hidden="true"
         class="pointer-events-none absolute inset-0 bg-black/20"
         :initial="false"
-        :animate="{ opacity: isMenuOpen ? 1 : 0 }"
+        :animate="{ opacity: isPanelShown ? 1 : 0 }"
         :transition="menuBackdropTransition"
       />
 
-      <motion.aside
+      <aside
         :id="`${menuPanelId}-content`"
-        class="absolute inset-y-0 right-0 flex w-full max-w-xl flex-col border-l border-border-100 bg-white px-6 py-6 sm:px-10 sm:py-9"
-        :initial="false"
-        :animate="shouldReduceMotion
-          ? { opacity: isMenuOpen ? 1 : 0 }
-          : { opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : '100%' }"
-        :transition="menuPanelTransition"
+        class="absolute inset-y-0 right-0 flex w-full max-w-xl flex-col border-l border-border-100 bg-white px-6 py-6 transition-[transform,opacity] duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-[transform,opacity] motion-reduce:translate-x-0 motion-reduce:transition-opacity sm:px-10 sm:py-9"
+        :class="isPanelShown ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'"
         @click.stop
       >
         <div class="flex items-center justify-between">
@@ -415,8 +430,8 @@ const menuBackdropTransition = { duration: 0.25, ease: 'easeOut' } as const
               :key="link.to"
               :initial="false"
               :animate="shouldReduceMotion
-                ? { opacity: isMenuOpen ? 1 : 0 }
-                : { opacity: isMenuOpen ? 1 : 0, y: isMenuOpen ? 0 : 24 }"
+                ? { opacity: isPanelShown ? 1 : 0 }
+                : { opacity: isPanelShown ? 1 : 0, y: isPanelShown ? 0 : 24 }"
               :transition="getLinkTransition(index)"
             >
               <NuxtLink
@@ -434,7 +449,7 @@ const menuBackdropTransition = { duration: 0.25, ease: 'easeOut' } as const
             </motion.li>
           </ul>
         </nav>
-      </motion.aside>
+      </aside>
     </dialog>
   </div>
 </template>
