@@ -9,15 +9,15 @@ datasource db {
 
 // <eponyme-schema>
 model Eponyme {
-  name                 String              @id
-  draft                Json                @db.JsonB
-  published            Json                @db.JsonB
+  name                 String               @id
+  draft                Json                 @db.JsonB
+  published            Json                 @db.JsonB
   status               String
   publishedAt          DateTime?
   scheduledPublishAt   DateTime?
   scheduledUnpublishAt DateTime?
-  createdAt            DateTime            @default(now())
-  updatedAt            DateTime            @updatedAt
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
   deletedAt            DateTime?
   versions             EponymeVersion[]
   index                EponymeEntryIndex[]
@@ -79,6 +79,7 @@ model EponymeUser {
   updatedAt           DateTime             @updatedAt
   sessions            EponymeUserSession[]
   versions            EponymeVersion[]
+  auditEvents         EponymeAuditEvent[]
 
   @@index([role, active])
   @@map("eponyme_users")
@@ -116,6 +117,35 @@ model EponymeRateLimit {
   @@map("eponyme_rate_limits")
 }
 
+model EponymeAuditEvent {
+  id            String       @id
+  occurredAt    DateTime     @default(now())
+  actorUserId   String?
+  actorUsername String?
+  action        String
+  outcome       String
+  resourceType  String?
+  resourceName  String?
+  targetUserId  String?
+  ipAddress     String?
+  userAgent     String?
+  metadata      Json?
+  actor         EponymeUser? @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([occurredAt])
+  @@index([actorUserId, occurredAt])
+  @@index([action, occurredAt])
+  @@index([resourceType, resourceName, occurredAt])
+  @@map("eponyme_audit_events")
+}
+
+model EponymeMaintenanceState {
+  key       String   @id
+  lastRunAt DateTime
+
+  @@map("eponyme_maintenance_state")
+}
+
 model EponymeSchema {
   key       String   @id @default("eponyme")
   version   Int
@@ -123,5 +153,4 @@ model EponymeSchema {
 
   @@map("_eponyme_schema")
 }
-
 // </eponyme-schema>

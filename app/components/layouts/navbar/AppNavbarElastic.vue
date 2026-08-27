@@ -311,8 +311,8 @@ const menuBackdropTransition = { duration: 0.25, ease: 'easeOut' } as const
           >
             <NuxtImg
               width="36"
-              height="36"
-              class="size-9"
+              height="42"
+              class="h-auto w-9"
               src="/assets/image/logo.svg"
               alt=""
             />

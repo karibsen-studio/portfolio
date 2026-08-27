@@ -71,8 +71,8 @@ const socialLinks = [
           >
             <NuxtImg
               width="50"
-              height="50"
-              class="size-12.5 [filter:brightness(0)_invert(1)]"
+              height="58"
+              class="h-auto w-12.5 [filter:brightness(0)_invert(1)]"
               src="/assets/image/logo.svg"
               alt=""
             />

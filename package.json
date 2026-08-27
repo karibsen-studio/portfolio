@@ -18,7 +18,7 @@
   "dependencies": {
     "@iconify-json/lucide": "^1.2.121",
     "@iconify-json/simple-icons": "^1.2.92",
-    "@karibsen/eponyme": "0.9.0-nightly.20260813",
+    "@karibsen/eponyme": "0.9.0-nightly.20260827",
     "@karibsen/eslint-config": "^0.1.0",
     "@lisse/vue": "^0.6.3",
     "@nuxt/fonts": "0.14.0",
@@ -29,6 +29,7 @@
     "@prisma/client": "^7.9.1",
     "@takumi-rs/core": "^2.10.0",
     "@vercel/functions": "^3.9.5",
+    "@vercel/speed-insights": "^2.0.0",
     "@vueuse/core": "^14.4.0",
     "@vueuse/nuxt": "^14.4.0",
     "motion-v": "^2.3.0",
@@ -39,7 +40,8 @@
     "turndown-plugin-gfm": "^1.0.2"
   },
   "devDependencies": {
-    "@eponyme/cli": "^0.1.1",
+    "@eponyme/cli": "^0.2.2",
+    "@eponyme/locale": "^0.5.0",
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/mingcute": "^1.2.8",
     "@nuxt/eslint": "^1.16.0",

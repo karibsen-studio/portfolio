@@ -44,9 +44,9 @@ watch(() => props.image, () => {
           src="/assets/image/logo.svg"
           alt=""
           width="64"
-          height="64"
+          height="74"
           draggable="false"
-          class="size-16 opacity-30"
+          class="h-auto w-16 opacity-30"
         />
       </div>
     </div>

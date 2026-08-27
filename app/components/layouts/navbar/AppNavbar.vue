@@ -18,8 +18,8 @@ import CornerHandles from '~/components/ui/CornerHandles.vue'
       >
         <NuxtImg
           width="36"
-          height="36"
-          class="size-9"
+          height="42"
+          class="h-auto w-9"
           src="/assets/image/logo.svg"
           alt=""
         />
