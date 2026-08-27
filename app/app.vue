@@ -20,8 +20,28 @@ const schemaOrg = {
         'streetAddress': '33 avenue du Maréchal Foch',
         'postalCode': '77500',
         'addressLocality': 'Chelles',
+        'addressRegion': 'Île-de-France',
         'addressCountry': 'FR'
       },
+      'contactPoint': [
+        {
+          '@type': 'ContactPoint',
+          'contactType': 'sales',
+          'email': 'contact@karibsen.fr',
+          'telephone': '+33749348748',
+          'url': 'https://karibsen.fr/demarrer-un-projet',
+          'availableLanguage': ['fr', 'en'],
+          'areaServed': 'FR'
+        },
+        {
+          '@type': 'ContactPoint',
+          'contactType': 'customer service',
+          'email': 'contact@karibsen.fr',
+          'telephone': '+33749348748',
+          'availableLanguage': ['fr', 'en'],
+          'areaServed': 'FR'
+        }
+      ],
       'sameAs': [
         'https://www.linkedin.com/company/karibsen',
         'https://x.com/karibsenstudios'
@@ -75,6 +95,19 @@ useHead({
   },
   bodyAttrs: {
     class: 'relative min-h-svh w-full'
+  }
+})
+
+const route = useRoute()
+const siteUrl = useSiteConfig().url
+
+useHead(() => {
+  const markdownPath = toMarkdownPath(route.path)
+
+  return {
+    link: markdownPath
+      ? [{ rel: 'alternate', type: 'text/markdown', href: `${siteUrl.replace(/\/+$/, '')}${markdownPath}` }]
+      : []
   }
 })
 

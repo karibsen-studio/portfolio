@@ -34,7 +34,9 @@
     "motion-v": "^2.3.0",
     "nuxt": "^4.5.1",
     "pg": "^8.23.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "turndown": "^7.2.4",
+    "turndown-plugin-gfm": "^1.0.2"
   },
   "devDependencies": {
     "@eponyme/cli": "^0.1.1",
@@ -42,6 +44,7 @@
     "@iconify-json/mingcute": "^1.2.8",
     "@nuxt/eslint": "^1.16.0",
     "@types/pg": "^8.23.1",
+    "@types/turndown": "^5.0.6",
     "dotenv": "^17.4.2",
     "eslint": "^10.8.0",
     "prisma": "^7.9.1",

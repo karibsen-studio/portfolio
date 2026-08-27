@@ -35,6 +35,11 @@
   --tracking-paragraph: -.02em;
 }
 
+body {
+  @apply antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 body, html {
   @apply selection:bg-theme-500/20 selection:text-theme-800
 }

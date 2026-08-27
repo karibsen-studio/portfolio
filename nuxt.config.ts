@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 export default defineNuxtConfig({
 
   modules: [
@@ -54,6 +56,25 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2026-06-30',
+
+  nitro: {
+    preset: 'vercel'
+  },
+
+  hooks: {
+    /**
+     * Runs our 404 handler before Nuxt's, without replacing it: `nitro.errorHandler`
+     * is a chain, and a handler that returns without answering hands the request to
+     * the next one — so browsers still get `error.vue`.
+     */
+    'nitro:init'(nitro) {
+      const existing = nitro.options.errorHandler
+      nitro.options.errorHandler = [
+        fileURLToPath(new URL('server/error', import.meta.url)),
+        ...(Array.isArray(existing) ? existing : existing ? [existing] : [])
+      ]
+    }
+  },
 
   eponyme: {
     prismaClient: '~~/server/utils/prisma',
