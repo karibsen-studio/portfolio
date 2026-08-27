@@ -30,8 +30,12 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { swr: 60, isr: 60 },
     '/recrutement': { swr: 600, isr: 600 },
+    '/realisations': { swr: 60, isr: 60 },
     '/realisations/**': { swr: 60, isr: 60 },
+
+    '/blog': { swr: 60, isr: 60 },
     '/blog/**': { swr: 60, isr: 60 },
+
     '/start-a-project': { redirect: { to: '/demarrer-un-projet', statusCode: 301 } },
     '/devis': { redirect: { to: '/demarrer-un-projet', statusCode: 301 } },
     '/legal-notice': { redirect: { to: '/mentions-legales', statusCode: 301 } },
