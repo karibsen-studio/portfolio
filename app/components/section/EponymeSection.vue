@@ -66,7 +66,7 @@ const headingId = useId()
         :alt="imageAlt"
         width="2438"
         height="1550"
-        sizes="100vw lg:60vw"
+        sizes="xs:100vw sm:100vw md:100vw lg:542px xl:650px"
         loading="lazy"
         class="block h-auto w-full max-w-full object-contain rounded-md"
       />

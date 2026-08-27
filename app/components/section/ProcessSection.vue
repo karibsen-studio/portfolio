@@ -45,6 +45,7 @@ function stepNumber(index: number) {
             :alt="step.imageAlt ?? ''"
             width="800"
             height="600"
+            sizes="xs:100vw sm:100vw md:358px lg:486px xl:574px"
             densities="1x 2x"
             loading="lazy"
             draggable="false"

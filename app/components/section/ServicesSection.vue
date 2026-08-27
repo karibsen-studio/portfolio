@@ -108,7 +108,7 @@ const displayedServices = computed(() => props.services.length ? props.services 
             :alt="service.imageAlt"
             width="1280"
             height="1120"
-            sizes="100vw md:640px"
+            sizes="xs:100vw sm:100vw md:368px lg:496px xl:600px"
             loading="lazy"
             draggable="false"
             class="size-full select-none object-cover"

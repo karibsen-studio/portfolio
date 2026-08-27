@@ -29,7 +29,7 @@ watch(() => props.image, () => {
         alt=""
         width="1280"
         height="960"
-        sizes="100vw md:50vw"
+        sizes="xs:100vw sm:100vw md:336px lg:464px xl:568px"
         loading="lazy"
         draggable="false"
         class="absolute inset-0 size-full select-none object-cover"
