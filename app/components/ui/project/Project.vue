@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from 'vue-router'
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 
 const props = defineProps<{
   name: string
@@ -26,6 +26,7 @@ watch(() => props.image, () => {
       <NuxtImg
         v-show="!imageFailed"
         :src="image"
+        format="webp"
         alt=""
         width="1280"
         height="960"

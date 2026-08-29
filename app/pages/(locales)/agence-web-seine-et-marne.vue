@@ -1,42 +1,44 @@
 <script setup lang="ts">
+import type { ProcessStep } from '~/types/process'
 import HeroLocaleSection from '~/components/section/HeroLocaleSection.vue'
 import ServicesSection from '~/components/section/ServicesSection.vue'
 import FAQSection from '~/components/section/FAQSection.vue'
 import CTASection from '~/components/section/CTASection.vue'
-import FeatureGrid from '~/components/ui/feature/featureGrid.vue'
+import FeatureGrid from '~/components/ui/feature/FeatureGrid.vue'
 import WhyKaribsenSection from '~/components/section/WhyKaribsenSection.vue'
 import ProcessSection from '~/components/section/ProcessSection.vue'
 import RelatedProjects from '~/components/section/RelatedProjects.vue'
 
+const title = 'Karibsen: Agence création site web en Seine-et-Marne (77)'
+const description = 'Agence web à Chelles : sites vitrines, refontes et applications sur mesure pour les entreprises de Seine-et-Marne, avec un seul interlocuteur.'
+
 useSeoMeta({
-  title: 'Agence web en Seine-et-Marne | Karibsen',
-  description: 'Karibsen, agence web née à Chelles : sites vitrines, refontes et applications web sur mesure pour les entreprises de Seine-et-Marne.'
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description
 })
 
-const process = [
+const process: ProcessStep[] = [
   {
     title: 'Un premier échange sur votre activité',
     description: 'Nous commençons par comprendre votre entreprise, vos clients et les résultats que vous attendez de votre futur site. Cet échange peut avoir lieu en Seine-et-Marne ou en visioconférence.\n\nNous clarifions ensemble les pages nécessaires, les messages importants, les fonctionnalités utiles et les actions que vos visiteurs devront pouvoir réaliser sans hésiter.',
-    image: '/assets/image/services/call.png',
-    imageAlt: 'Premier appel en visioconférence avec Google Meet'
+    animation: 'call'
   },
   {
     title: 'La stratégie, les contenus et la maquette',
     description: 'Nous organisons votre offre pour qu’elle soit comprise rapidement, puis concevons une direction visuelle fidèle à votre identité.\n\nLa maquette permet de valider la hiérarchie des informations, les appels à l’action et l’expérience mobile avant le développement.',
-    image: '/assets/image/services/maquette.png',
-    imageAlt: 'Échanges autour des contenus et de la maquette du futur site'
+    animation: 'skeleton'
   },
   {
     title: 'Le développement de votre projet web',
     description: 'Nous développons un site rapide, responsive et simple à administrer, sans partir d’un modèle générique. Le design, les performances et les fondations du référencement naturel sont travaillés ensemble.',
-    image: '/assets/image/services/code.png',
-    imageAlt: 'Extrait de code TypeScript utilisé pour le développement d’un projet web'
+    animation: 'website'
   },
   {
     title: 'La mise en ligne et la prise en main',
     description: 'Avant la publication, nous vérifions les contenus, les formulaires, les liens et le comportement du site sur chaque taille d’écran.\n\nUne fois le projet en ligne, vous disposez des accès et des explications utiles pour faire vivre votre site.',
-    image: '/assets/image/services/online.png',
-    imageAlt: 'Indicateur confirmant que le projet web est en ligne'
+    animation: 'online'
   }
 ]
 
@@ -90,6 +92,7 @@ const features = [
     <FeatureGrid
       class="mt-24 md:mt-32"
       :features="features"
+      heading="h2"
     />
 
     <ServicesSection

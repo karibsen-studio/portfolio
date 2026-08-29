@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import CheckList from '~/components/ui/list/CheckList.vue'
 import type { RouteLocationRaw } from 'vue-router'
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 import PressButton from '~/components/ui/PressButton.vue'
 import BaseSection from '~/components/section/BaseSection.vue'
 import Marquee from '~/components/ui/Marquee.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 
 interface ServiceItem {
   title: string
@@ -105,6 +107,7 @@ const displayedServices = computed(() => props.services.length ? props.services 
           <NuxtImg
             v-if="service.image"
             :src="service.image"
+            format="webp"
             :alt="service.imageAlt"
             width="1280"
             height="1120"
@@ -127,20 +130,7 @@ const displayedServices = computed(() => props.services.length ? props.services 
           </Heading>
           <p>{{ service.description }}</p>
 
-          <ul class="flex flex-col gap-3">
-            <li
-              v-for="feature in service.features"
-              :key="feature"
-              class="flex items-start gap-3"
-            >
-              <UIcon
-                name="heroicons:check-circle-20-solid"
-                aria-hidden="true"
-                class="mt-1 size-5 shrink-0 text-black"
-              />
-              <span>{{ feature }}</span>
-            </li>
-          </ul>
+          <CheckList :items="service.features" />
 
           <div class="pt-6">
             <PressButton

@@ -2,7 +2,7 @@
 import type { RouteLocationRaw } from 'vue-router'
 import BaseSection from '~/components/section/BaseSection.vue'
 import CornerHandles from '~/components/ui/CornerHandles.vue'
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 import PressButton from '~/components/ui/PressButton.vue'
 
 withDefaults(defineProps<{
@@ -63,6 +63,7 @@ const headingId = useId()
 
       <NuxtImg
         :src="image"
+        format="webp"
         :alt="imageAlt"
         width="2438"
         height="1550"

@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import CornerHandles from '~/components/ui/CornerHandles.vue'
+import PageSection from '~/components/section/PageSection.vue'
+import ContentCard from '~/components/ui/ContentCard.vue'
+
+const title = 'Karibsen: Mentions légales et données personnelles'
+const description = 'Mentions légales du site Karibsen : éditeur, hébergeur, propriété intellectuelle et données personnelles.'
 
 useSeoMeta({
-  title: 'Mentions légales | Karibsen',
-  description: 'Mentions légales du site Karibsen : éditeur, hébergeur, propriété intellectuelle et données personnelles.',
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
   robots: 'noindex, follow'
 })
-
-const headingId = useId()
 
 const sections = [
   {
@@ -68,40 +72,24 @@ const sections = [
 </script>
 
 <template>
-  <div class="pb-24 pt-36 sm:pb-32 sm:pt-44">
-    <section
-      :aria-labelledby="headingId"
-      class="relative z-10 mx-auto flex max-w-3xl flex-col gap-10 px-4 md:px-8"
-    >
-      <SectionTitle
-        :id="headingId"
-        heading="h1"
+  <PageSection
+    title="Mentions légales"
+    size="h2"
+  >
+    <div class="flex flex-col gap-6">
+      <ContentCard
+        v-for="section in sections"
+        :key="section.title"
+        :title="section.title"
       >
-        <template #title>
-          Mentions légales
-        </template>
-      </SectionTitle>
-
-      <div class="flex flex-col gap-6">
-        <section
-          v-for="section in sections"
-          :key="section.title"
-          class="relative flex flex-col gap-4 border border-border-100 bg-white p-6 sm:p-8"
+        <p
+          v-for="paragraph in section.paragraphs"
+          :key="paragraph"
+          class="leading-relaxed text-foreground-300"
         >
-          <CornerHandles />
-
-          <h2 class="font-sans text-2xl font-semibold text-black">
-            {{ section.title }}
-          </h2>
-          <p
-            v-for="paragraph in section.paragraphs"
-            :key="paragraph"
-            class="leading-relaxed text-foreground-300"
-          >
-            {{ paragraph }}
-          </p>
-        </section>
-      </div>
-    </section>
-  </div>
+          {{ paragraph }}
+        </p>
+      </ContentCard>
+    </div>
+  </PageSection>
 </template>

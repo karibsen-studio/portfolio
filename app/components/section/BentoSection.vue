@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import BaseSection from '~/components/section/BaseSection.vue'
-import BentoValidation from '~/components/animation/bento-validation.vue'
-import BentoDevelopment from '~/components/animation/bento-development.vue'
+import BentoValidation from '~/components/animation/BentoValidation.vue'
+import BentoDevelopment from '~/components/animation/BentoDevelopment.vue'
 import CornerHandles from '~/components/ui/CornerHandles.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 
 defineProps<{
   title: string

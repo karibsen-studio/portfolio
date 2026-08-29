@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import ProjectGrid from '~/components/ui/project/ProjectGrid.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
+
+const title = 'Karibsen: Réalisations de sites et applications web'
+const description = 'Sites vitrines, applications web et refontes : les projets conçus et développés par Karibsen, avec le contexte et les choix techniques de chacun.'
 
 useSeoMeta({
-  title: 'Nos réalisations | Karibsen',
-  description: 'Sites vitrines, applications web et refontes : les projets conçus et développés par Karibsen.'
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description
 })
 
 const route = useRoute()

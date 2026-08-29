@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import PressButton from '~/components/ui/PressButton.vue'
-import ProjectGrid, { type ProjectItem } from '~/components/ui/project/ProjectGrid.vue'
+import ProjectGrid from '~/components/ui/project/ProjectGrid.vue'
+import type { ProjectItem } from '~/types/content'
 import BaseSection from '~/components/section/BaseSection.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 
 withDefaults(defineProps<{
   projects?: ProjectItem[]

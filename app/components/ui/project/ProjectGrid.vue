@@ -1,15 +1,7 @@
 <script setup lang="ts">
-import type { RouteLocationRaw } from 'vue-router'
+import type { ProjectItem } from '~/types/content'
 import Project from '~/components/ui/project/Project.vue'
 import CornerHandles from '~/components/ui/CornerHandles.vue'
-
-export interface ProjectItem {
-  name: string
-  tags: string[]
-  description: string
-  image: string
-  to: RouteLocationRaw
-}
 
 const props = withDefaults(defineProps<{
   projects?: ProjectItem[]

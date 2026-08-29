@@ -4,21 +4,17 @@ import ServicesSection from '~/components/section/ServicesSection.vue'
 import RealisationSection from '~/components/section/RealisationSection.vue'
 import FAQSection from '~/components/section/FAQSection.vue'
 import CTASection from '~/components/section/CTASection.vue'
-import VideoSection from '~/components/section/VideoSection.vue'
-import FeatureGrid from '~/components/ui/feature/featureGrid.vue'
+import FeatureGrid from '~/components/ui/feature/FeatureGrid.vue'
 import BentoSection from '~/components/section/BentoSection.vue'
 
-const seoTitle = 'Agence web sur mesure : sites et applications | Karibsen'
-
+const seoTitle = 'Agence web sur mesure : sites et applications'
 const seoDescription = 'Chez Karibsen, nous créons des sites web uniques et performants qui renforcent votre image, attirent vos clients et font grandir votre activité.'
 
 useSeoMeta({
   title: seoTitle,
   ogTitle: seoTitle,
-  twitterTitle: seoTitle,
   description: seoDescription,
-  ogDescription: seoDescription,
-  twitterDescription: seoDescription
+  ogDescription: seoDescription
 })
 
 const { data: homepage } = useEponyme('homepage')
@@ -45,8 +41,7 @@ const projects = computed(() => realisations.value.map(entry => ({
       :cta-label="hero?.ctaLabel"
       :cta-to="hero?.ctaTo.href"
       :worked-with="hero?.workedWith ?? true"
-    >
-    </HeroSection>
+    />
 
     <ServicesSection />
     <FeatureGrid />

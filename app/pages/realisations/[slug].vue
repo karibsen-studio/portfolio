@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseSection from '~/components/section/BaseSection.vue'
 import OtherServicesSection from '~/components/section/OtherServicesSection.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 
 definePageMeta({
   key: route => route.fullPath
@@ -23,15 +24,26 @@ if (error.value || !project.value) {
   })
 }
 
+const title = () => project.value?.name
+  ? `Karibsen: Étude de cas ${project.value.name}`
+  : 'Karibsen: Étude de cas'
+
+const description = () => project.value?.description
+
 useSeoMeta({
-  title: () => project.value?.name,
-  description: () => project.value?.description
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description
 })
 </script>
 
 <template>
   <BaseSection class="relative z-10 pt-32 md:pt-48 flex w-full flex-col gap-9">
-    <SectionTitle>
+    <SectionTitle
+      heading="h1"
+      size="h2"
+    >
       <template #title>
         {{ project?.name }}
       </template>

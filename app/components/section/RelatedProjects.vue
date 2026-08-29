@@ -2,6 +2,7 @@
 import PressButton from '~/components/ui/PressButton.vue'
 import ProjectGrid from '~/components/ui/project/ProjectGrid.vue'
 import BaseSection from '~/components/section/BaseSection.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 
 const props = withDefaults(defineProps<{
   tag?: string
@@ -21,7 +22,7 @@ const props = withDefaults(defineProps<{
 
 const headingId = useId()
 
-const { entries } = useEponymeCollection('realisations', {
+const { entries } = await useEponymeCollection('realisations', {
   orderBy: 'publishedAt',
   order: 'desc',
   take: props.take,

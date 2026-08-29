@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 import BaseSection from '~/components/section/BaseSection.vue'
 
 withDefaults(defineProps<{

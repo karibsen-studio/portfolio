@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
-import AppFooter from '~/components/layouts/footer/AppFooter.vue'
-import AppNavbar from '~/components/layouts/navbar/AppNavbarElastic.vue'
+import AppFooter from '~/components/layout/footer/AppFooter.vue'
+import AppNavbar from '~/components/layout/navbar/AppNavbarElastic.vue'
 import { MotionConfig } from 'motion-v'
 import BaseSection from '~/components/section/BaseSection.vue'
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 import PressButton from '~/components/ui/PressButton.vue'
 
 defineProps({

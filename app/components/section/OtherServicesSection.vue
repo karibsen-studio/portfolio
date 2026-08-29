@@ -1,14 +1,8 @@
 <script setup lang="ts">
+import type { OtherService } from '~/types/content'
 import BaseSection from '~/components/section/BaseSection.vue'
 import CornerHandles from '~/components/ui/CornerHandles.vue'
-
-export interface OtherService {
-  key: string
-  icon: string
-  label: string
-  description: string
-  to: string
-}
+import SectionTitle from '~/components/section/SectionTitle.vue'
 
 const props = withDefaults(defineProps<{
   exclude?: string

@@ -3,9 +3,14 @@ import PricingSection from '~/components/section/PricingSection.vue'
 import FAQSection from '~/components/section/FAQSection.vue'
 import CTASection from '~/components/section/CTASection.vue'
 
+const title = 'Karibsen: Tarifs de création de site et d\'application web'
+const description = 'Découvrez les tarifs de départ pour un site vitrine, une application web sur mesure ou une refonte de site web avec Karibsen.'
+
 useSeoMeta({
-  title: 'Tarifs création de site et application web | Karibsen',
-  description: 'Découvrez les tarifs de départ pour un site vitrine, une application web sur mesure ou une refonte de site web avec Karibsen.'
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description
 })
 
 const plans = [
@@ -82,6 +87,7 @@ const faq = [
     <PricingSection
       id="tarifs"
       heading="h1"
+      size="h2"
       title="Choisissez le point de départ adapté à votre projet."
       description="Site vitrine, application métier ou refonte : chaque offre peut être ajustée à vos besoins."
       :plans="plans"

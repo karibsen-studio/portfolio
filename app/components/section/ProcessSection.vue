@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import type { ProcessStep } from '~/types/process'
+import type { Component } from 'vue'
+import type { ProcessAnimation, ProcessStep } from '~/types/process'
+import AnimationFirstCall from '~/components/animation/FirstCall.vue'
+import AnimationSiteOnline from '~/components/animation/SiteOnline.vue'
+import AnimationSkeletonLoading from '~/components/animation/SkeletonLoading.vue'
+import AnimationWebsitePreview from '~/components/animation/WebsitePreview.vue'
 import BaseSection from '~/components/section/BaseSection.vue'
 import CornerHandles from '~/components/ui/CornerHandles.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 
 withDefaults(defineProps<{
   title?: string
@@ -9,6 +15,13 @@ withDefaults(defineProps<{
 }>(), {
   title: 'Un projet clair, du premier appel à la mise en ligne.'
 })
+
+const animations: Record<ProcessAnimation, Component> = {
+  call: AnimationFirstCall,
+  skeleton: AnimationSkeletonLoading,
+  website: AnimationWebsitePreview,
+  online: AnimationSiteOnline
+}
 
 const headingId = useId()
 
@@ -39,17 +52,10 @@ function stepNumber(index: number) {
         class="relative flex flex-col gap-5 border border-border-100 bg-white"
       >
         <div class="relative aspect-[4/3] overflow-hidden">
-          <NuxtImg
-            v-if="step.image"
-            :src="step.image"
-            :alt="step.imageAlt ?? ''"
-            width="800"
-            height="600"
-            sizes="xs:100vw sm:100vw md:358px lg:486px xl:574px"
-            densities="1x 2x"
-            loading="lazy"
-            draggable="false"
-            class="absolute inset-0 size-full select-none object-cover"
+          <component
+            :is="animations[step.animation]"
+            v-if="step.animation"
+            class="absolute inset-0"
           />
           <span
             v-else

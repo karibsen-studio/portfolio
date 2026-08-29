@@ -37,7 +37,6 @@
 
 body {
   @apply antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 body, html {

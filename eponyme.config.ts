@@ -249,6 +249,92 @@ export default defineEponymeConfig({
     }
   }),
 
+  jobs: collection({
+    label: 'Offres d’emploi',
+    description: 'Les postes, stages et alternances affichés sur la page recrutement.',
+    addLabel: '+ Nouvelle offre',
+    titleField: 'title',
+    slugField: 'slug',
+    fields: {
+      title: field.string({
+        label: 'Intitulé du poste',
+        required: true,
+        maxLength: 80
+      }),
+      reference: field.custom('reference', {
+        label: 'Référence',
+        description: 'Identifiant public de l’offre, généré automatiquement. Il sert d’adresse à la page : /recrutement/ks4821.',
+        defaultValue: 'KS0000',
+        required: true
+      }),
+      slug: field.slug({
+        label: 'Slug',
+        description: 'Identifiant interne. Reprenez la référence en minuscules, par exemple ks4821.',
+        required: true
+      }),
+      contract: field.select({
+        label: 'Type de contrat',
+        required: true,
+        options: [
+          { label: 'Stage', value: 'stage' },
+          { label: 'Alternance', value: 'alternance' },
+          { label: 'CDI', value: 'cdi' },
+          { label: 'CDD', value: 'cdd' },
+          { label: 'Freelance', value: 'freelance' }
+        ]
+      }),
+      duration: field.string({
+        label: 'Durée',
+        description: 'Par exemple « 2 mois maximum ». Laisser vide pour un poste sans durée.',
+        maxLength: 40
+      }),
+      location: field.string({
+        label: 'Lieu',
+        maxLength: 60,
+        defaultValue: 'À distance'
+      }),
+      remote: field.boolean({
+        label: 'Télétravail possible',
+        defaultValue: true
+      }),
+      excerpt: field.textarea({
+        label: 'Accroche',
+        description: 'Résumé affiché dans la liste des offres.',
+        required: true,
+        maxLength: 220
+      }),
+      skills: field.tags({
+        label: 'Compétences',
+        suggestions: ['Figma', 'UI', 'UX', 'Design system', 'Maquettes', 'Nuxt', 'Vue', 'TypeScript', 'SEO'],
+        allowCustom: true,
+        maxItems: 6
+      }),
+      body: field.richText({
+        label: 'Description du poste',
+        required: true,
+        placeholder: 'Missions, profil recherché, déroulement…'
+      }),
+      applyTo: field.url({
+        label: 'Lien de candidature',
+        protocols: ['mailto'],
+        defaultValue: {
+          href: 'mailto:contact@karibsen.fr?subject=Candidature',
+          type: 'external',
+          openInNewTab: false
+        }
+      }),
+      publishedOn: field.date({
+        label: 'Date de publication',
+        defaultValue: today()
+      }),
+      open: field.boolean({
+        label: 'Offre ouverte',
+        description: 'Décocher pour la garder en ligne en indiquant qu’elle est pourvue.',
+        defaultValue: true
+      })
+    }
+  }),
+
   reviews: collection({
     label: 'Avis clients',
     description: 'Les témoignages affichés sur la page d’accueil.',

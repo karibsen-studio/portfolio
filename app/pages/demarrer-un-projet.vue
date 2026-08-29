@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import BaseSection from '~/components/section/BaseSection.vue'
 import CornerHandles from '~/components/ui/CornerHandles.vue'
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 import PressButton from '~/components/ui/PressButton.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 import Tag from '~/components/ui/tags/Tag.vue'
 
+const title = 'Karibsen: Démarrer un projet de site ou d\'application'
+const description = 'Parlez-nous de votre site vitrine, de votre refonte ou de votre application web. Décrivez votre projet et recevez une réponse personnalisée sous 24 heures.'
+
 useSeoMeta({
-  title: 'Démarrer un projet web | Karibsen',
-  description: 'Parlez-nous de votre site vitrine, de votre refonte ou de votre application web. Décrivez votre projet et recevez une réponse personnalisée sous 24 heures.'
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description
 })
 
 const headingId = useId()
@@ -55,24 +61,26 @@ const { values: form, pending, submitted, submit, honeypot } = useEponymeForm('c
   <div class="flex flex-col gap-16 pb-24 pt-36 sm:pb-32 sm:pt-44 lg:gap-24">
     <BaseSection
       :aria-labelledby="headingId"
-      class="flex flex-col items-center gap-7 text-center"
+      class="flex flex-col items-center gap-7"
     >
-      <div class="flex max-w-4xl flex-col items-center gap-5">
-        <Heading
-          :id="headingId"
-          as="h1"
-          class="text-3xl sm:text-4xl lg:text-5xl"
-        >
+      <SectionTitle
+        :id="headingId"
+        heading="h1"
+        size="h2"
+      >
+        <template #title>
           Parlons de ce que vous voulez construire.
-        </Heading>
-        <p class="max-w-2xl text-lg leading-relaxed text-theme-950 sm:text-xl">
-          Quelques informations suffisent pour comprendre votre besoin et préparer un premier échange vraiment utile.
-        </p>
-      </div>
+        </template>
+        <template #description>
+          <p class="max-w-2xl text-lg leading-relaxed text-foreground-300 sm:text-xl md:text-center">
+            Quelques informations suffisent pour comprendre votre besoin et préparer un premier échange vraiment utile.
+          </p>
+        </template>
+      </SectionTitle>
 
       <div class="flex flex-wrap justify-center gap-4">
         <Tag label="Réponse sous 24 h" />
-        <Tag label="Premier échange gratuit" />
+        <Tag label="Échange gratuit" />
         <Tag label="Devis transparent" />
       </div>
     </BaseSection>

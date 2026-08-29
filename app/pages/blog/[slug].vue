@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { resolveEponymeSeo, type EponymeSeoValue } from '@karibsen/eponyme/config'
 import CTASection from '~/components/section/CTASection.vue'
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 
 definePageMeta({
   key: route => route.fullPath
@@ -75,6 +75,7 @@ const publishedLabel = computed(() => {
       <NuxtImg
         v-if="article?.cover"
         :src="article.cover"
+        format="webp"
         :alt="article.title"
         width="1280"
         height="720"

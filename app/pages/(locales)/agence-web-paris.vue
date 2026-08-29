@@ -1,39 +1,41 @@
 <script setup lang="ts">
+import type { ProcessStep } from '~/types/process'
 import HeroLocaleSection from '~/components/section/HeroLocaleSection.vue'
 import ServicesSection from '~/components/section/ServicesSection.vue'
 import WhyKaribsenSection from '~/components/section/WhyKaribsenSection.vue'
 import CTASection from '~/components/section/CTASection.vue'
 import ProcessSection from '~/components/section/ProcessSection.vue'
 
+const title = 'Karibsen: Agence de création de site web à Paris 12 (75)'
+const description = 'Agence web indépendante à Paris 12 : sites vitrines, refontes et applications sur mesure, avec un interlocuteur unique du premier appel à la mise en ligne.'
+
 useSeoMeta({
-  title: 'Agence web à Paris : création de sites et applications | Karibsen',
-  description: 'Agence web indépendante basée à Paris 12 : sites vitrines, refontes et applications sur mesure, avec un interlocuteur unique du premier appel à la mise en ligne.'
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description
 })
 
-const process = [
+const process: ProcessStep[] = [
   {
     title: 'Cadrer le projet sans multiplier les réunions',
     description: 'Nous réunissons dès le départ les personnes qui décideront du contenu, du budget et du calendrier. Le rendez-vous peut avoir lieu à Paris ou en visioconférence.\n\nCet échange sert à fixer un objectif principal, les publics à convaincre et les contraintes à prendre en compte. Vous repartez avec un périmètre lisible, pas avec une succession d’ateliers sans décision.',
-    image: '/assets/image/services/call.png',
-    imageAlt: 'Réunion de cadrage pour un projet web à Paris'
+    animation: 'call'
   },
   {
     title: 'Faire ressortir votre offre dans un marché chargé',
     description: 'À Paris, vos prospects comparent vite et ouvrent souvent plusieurs sites à la suite. Nous travaillons donc l’ordre des pages, les preuves et les appels à l’action avant de dessiner l’interface.\n\nLa maquette montre concrètement ce qu’un visiteur comprend en arrivant, où il trouve l’information utile et comment il vous contacte.',
-    image: '/assets/image/services/maquette.png',
-    imageAlt: 'Maquette conçue pour présenter clairement une offre à Paris'
+    animation: 'skeleton'
   },
   {
     title: 'Développer avec des validations courtes',
     description: 'Une fois la direction validée, nous développons les écrans et les fonctionnalités par étapes. Vous échangez directement avec la personne qui écrit le code, ce qui permet de trancher rapidement lorsqu’un détail doit évoluer.\n\nLe site reste lisible sur mobile, rapide à charger et administrable sans dépendre de nous pour chaque modification.',
-    image: '/assets/image/services/code.png',
-    imageAlt: 'Développement sur mesure d’un site pour une entreprise parisienne'
+    animation: 'website'
   },
   {
     title: 'Préparer la bascule sans perdre vos acquis',
     description: 'Nous contrôlons les formulaires, les liens, le nom de domaine et les pages importantes avant l’ouverture au public. Lors d’une refonte, les anciennes adresses sont redirigées vers les nouvelles pour conserver le chemin des visiteurs et des moteurs de recherche.\n\nAprès la mise en ligne, nous vous remettons les accès et vous montrons les actions courantes pour gérer le site.',
-    image: '/assets/image/services/online.png',
-    imageAlt: 'Contrôle final avant la mise en ligne d’un site à Paris'
+    animation: 'online'
   }
 ]
 </script>

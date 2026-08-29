@@ -1,34 +1,17 @@
 <script setup lang="ts">
-import type { RouteLocationRaw } from 'vue-router'
+import type { PricingDetail, PricingPlan } from '~/types/pricing'
+import CheckList from '~/components/ui/list/CheckList.vue'
 import BaseSection from '~/components/section/BaseSection.vue'
 import CornerHandles from '~/components/ui/CornerHandles.vue'
-import Heading, { type HeadingSize } from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
+import type { HeadingLevel, HeadingSize } from '~/types/heading'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 import PressButton from '~/components/ui/PressButton.vue'
-
-export interface PricingPlan {
-  title: string
-  price: string
-  pricePrefix?: string
-  priceSuffix?: string
-  description: string
-  features: string[]
-  ctaLabel?: string
-  ctaTo?: RouteLocationRaw
-  image?: string
-  imageAlt?: string
-  highlight?: boolean
-  badge?: string
-}
-
-export interface PricingDetail {
-  title: string
-  description: string
-  icon?: string
-}
 
 const props = withDefaults(defineProps<{
   title?: string
-  heading?: HeadingSize
+  heading?: HeadingLevel
+  size?: HeadingSize
   description?: string
   plans?: PricingPlan[]
   plan?: PricingPlan
@@ -44,6 +27,12 @@ const props = withDefaults(defineProps<{
 })
 
 const headingId = useId()
+
+/**
+ * Les offres se placent d'un cran sous le titre de la section : si celui-ci est
+ * un h1, elles deviennent des h2, sinon des h3. Évite les niveaux sautés.
+ */
+const itemHeading = computed<HeadingLevel>(() => (props.heading === 'h1' ? 'h2' : 'h3'))
 
 const resolvedPlans = computed<PricingPlan[]>(() => (
   props.plans.length ? props.plans : props.plan ? [props.plan] : []
@@ -69,6 +58,7 @@ const plansGridClass = computed(() => {
     <SectionTitle
       :id="headingId"
       :heading="heading"
+      :size="size"
       class="mb-10"
     >
       <template #title>
@@ -79,7 +69,7 @@ const plansGridClass = computed(() => {
         #description
       >
         <div class="max-w-162.5">
-          <p class="text-lg leading-relaxed text-theme-950 md:text-center">
+          <p class="text-lg leading-relaxed text-foreground-300 md:text-center">
             {{ description }}
           </p>
         </div>
@@ -109,6 +99,7 @@ const plansGridClass = computed(() => {
             <NuxtImg
               v-if="planItem.image"
               :src="planItem.image"
+              format="webp"
               :alt="planItem.imageAlt || ''"
               width="160"
               height="160"
@@ -117,26 +108,26 @@ const plansGridClass = computed(() => {
 
             <p
               v-if="planItem.badge"
-              class="mb-3 w-fit rounded-full bg-theme-500 px-3 py-1 text-sm font-medium text-theme-950"
+              class="mb-3 w-fit rounded-full bg-theme-500 px-3 py-1 text-sm font-medium text-foreground-200"
             >
               {{ planItem.badge }}
             </p>
 
             <Heading
-              as="h3"
+              :as="itemHeading"
               class="text-2xl font-sans! font-medium text-black!"
             >
               {{ planItem.title }}
             </Heading>
 
-            <p class="mt-2 max-w-md text-base leading-relaxed text-theme-950">
+            <p class="mt-2 max-w-md text-base leading-relaxed text-foreground-300">
               {{ planItem.description }}
             </p>
 
             <div class="mt-6">
               <span
                 v-if="planItem.pricePrefix"
-                class="block text-sm text-theme-950"
+                class="block text-sm text-foreground-200"
               >{{ planItem.pricePrefix }}</span>
               <p class="font-heading text-3xl tracking-heading text-black sm:text-4xl">
                 {{ planItem.price }}
@@ -147,20 +138,11 @@ const plansGridClass = computed(() => {
               >{{ planItem.priceSuffix }}</span>
             </div>
 
-            <ul class="mt-6 flex flex-col gap-3">
-              <li
-                v-for="feature in planItem.features"
-                :key="feature"
-                class="flex items-start gap-3 text-base text-black"
-              >
-                <UIcon
-                  name="heroicons:check-circle-20-solid"
-                  aria-hidden="true"
-                  class="mt-1 size-5 shrink-0 text-green-500"
-                />
-                <span>{{ feature }}</span>
-              </li>
-            </ul>
+            <CheckList
+              :items="planItem.features"
+              icon-class="text-green-500"
+              class="mt-6 text-base text-black"
+            />
 
             <div
               v-if="planItem.ctaLabel"
@@ -209,7 +191,7 @@ const plansGridClass = computed(() => {
 
           <div>
             <Heading
-              as="h3"
+              :as="itemHeading"
               class="text-2xl font-sans! font-medium text-black!"
             >
               {{ detail.title }}

@@ -5,6 +5,7 @@
 .nitro
 .cache
 .vercel/
+.vercel
 .seo-cache/
 dist
 

@@ -3,6 +3,7 @@ import Marquee from '~/components/ui/Marquee.vue'
 
 import type { AccordionItem } from '@nuxt/ui'
 import BaseSection from '~/components/section/BaseSection.vue'
+import SectionTitle from '~/components/section/SectionTitle.vue'
 
 interface FaqItem {
   question: string

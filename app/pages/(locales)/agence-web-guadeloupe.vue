@@ -1,40 +1,84 @@
 <script setup lang="ts">
+import type { ProcessStep } from '~/types/process'
 import HeroLocaleSection from '~/components/section/HeroLocaleSection.vue'
-import ServicesSection from '~/components/section/ServicesSection.vue'
+import FocusSection from '~/components/section/FocusSection.vue'
 import WhyKaribsenSection from '~/components/section/WhyKaribsenSection.vue'
 import CTASection from '~/components/section/CTASection.vue'
 import ProcessSection from '~/components/section/ProcessSection.vue'
 import PromoPopup from '~/components/ui/PromoPopup.vue'
 
+const title = 'Karibsen: Agence de création de site web en Guadeloupe (971)'
+const description = 'Création de sites web pour les entreprises guadeloupéennes : tourisme, réservation, commerce local. Une agence fondée par un Guadeloupéen, en métropole.'
+
 useSeoMeta({
-  title: 'Agence web Guadeloupe : création de sites à distance | Karibsen',
-  description: 'Création de sites vitrines et d’applications web pour les entreprises guadeloupéennes. Fondée par un Guadeloupéen installé en métropole, Karibsen travaille à distance avec des échanges cadrés.'
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description
 })
 
-const process = [
+const focus = [
+  {
+    icon: 'heroicons:sun',
+    title: 'Tourisme et réservation',
+    description: 'Hôtels, locations saisonnières, excursions et restaurants : votre site doit rassurer un visiteur qui ne connaît pas encore l’île et lui permettre de réserver sans appeler.',
+    points: [
+      'Présentation des hébergements, sorties et menus',
+      'Disponibilités, demandes de réservation et acomptes',
+      'Photos et pages pensées pour la préparation d’un séjour',
+      'Version consultable depuis la métropole comme depuis l’île'
+    ],
+    to: '/site-vitrine',
+    linkLabel: 'Voir la création de site vitrine'
+  },
+  {
+    icon: 'heroicons:map-pin',
+    title: 'Commerce et services locaux',
+    description: 'Vos clients vous cherchent depuis leur téléphone, souvent en déplacement. L’essentiel doit être trouvable en quelques secondes, sans zoomer ni chercher un numéro.',
+    points: [
+      'Fiche Google et site qui affichent les mêmes informations',
+      'Horaires, itinéraire et appel accessibles en un geste',
+      'Contact direct par WhatsApp en plus du formulaire',
+      'Chargement rapide, y compris avec une connexion mobile faible'
+    ],
+    to: '/refonte-site-web',
+    linkLabel: 'Voir la refonte de site'
+  },
+  {
+    icon: 'heroicons:globe-alt',
+    title: 'Clientèle locale et métropolitaine',
+    description: 'Beaucoup d’activités guadeloupéennes s’adressent à deux publics à la fois : ceux qui vivent sur l’île et ceux qui préparent leur venue depuis l’Hexagone.',
+    points: [
+      'Un discours qui parle aux deux publics sans les mélanger',
+      'Livraison, expédition ou déplacement expliqués clairement',
+      'Paiement et prise de contact adaptés à distance',
+      'Référencement travaillé sur les recherches des deux côtés'
+    ],
+    to: '/application-web-sur-mesure',
+    linkLabel: 'Voir les applications sur mesure'
+  }
+]
+
+const process: ProcessStep[] = [
   {
     title: 'Organiser les échanges autour du décalage horaire',
     description: 'Le premier rendez-vous se tient en visioconférence sur un créneau défini ensemble. Nous préparons les questions en amont pour consacrer l’appel aux décisions utiles, puis nous gardons une trace écrite des réponses et des prochaines actions.\n\nEntre deux rendez-vous, vous pouvez transmettre vos contenus et vos retours sans attendre que nous soyons connectés au même moment.',
-    image: '/assets/image/services/call.png',
-    imageAlt: 'Visioconférence organisée entre la Guadeloupe et la métropole'
+    animation: 'call'
   },
   {
     title: 'Présenter votre activité avec ses réalités locales',
     description: 'Nous partons des services que vous proposez réellement en Guadeloupe, des personnes que vous ciblez et des questions qu’elles vous posent. Le contenu ne reprend pas le discours générique d’une entreprise située en métropole.\n\nNous construisons ensuite les pages et les parcours autour de ces usages, avec des textes que vos clients peuvent comprendre sans connaître votre métier.',
-    image: '/assets/image/services/maquette.png',
-    imageAlt: 'Organisation des contenus d’un site destiné au public guadeloupéen'
+    animation: 'skeleton'
   },
   {
     title: 'Valider la maquette à distance, écran par écran',
     description: 'Vous découvrez le futur site avant le développement et commentez chaque écran depuis la Guadeloupe. Nous regroupons les retours au même endroit afin de distinguer les corrections nécessaires des nouvelles idées.\n\nCette validation porte sur le contenu, la navigation et l’affichage mobile. Le développement commence lorsque les choix importants sont clairs pour tout le monde.',
-    image: '/assets/image/services/code.png',
-    imageAlt: 'Validation à distance des écrans avant leur développement'
+    animation: 'website'
   },
   {
     title: 'Mettre en ligne et transmettre la gestion du site',
     description: 'Nous convenons d’un jour de publication et vérifions le domaine, les formulaires et les coordonnées affichées avant le passage en ligne. Vous n’avez pas besoin d’être devant votre écran pendant toute l’opération.\n\nUne visioconférence de prise en main vous montre comment modifier les contenus courants. Vous recevez aussi les accès nécessaires pour rester propriétaire de votre site.',
-    image: '/assets/image/services/online.png',
-    imageAlt: 'Mise en ligne à distance d’un site pour une activité en Guadeloupe'
+    animation: 'online'
   }
 ]
 </script>
@@ -42,28 +86,30 @@ const process = [
 <template>
   <div class="pb-24 sm:pb-32">
     <HeroLocaleSection
-      title="Une agence web guadeloupéenne, à la hauteur de votre activité."
-      description="Karibsen accompagne les entreprises, indépendants et associations de Guadeloupe avec des sites et des applications web sur mesure, entièrement à distance."
+      title="Créer un site pour votre entreprise en Guadeloupe."
+      description="Tourisme, commerce de proximité, services : nous concevons des sites pensés pour la clientèle guadeloupéenne comme pour celle qui prépare sa venue depuis la métropole."
       image="/assets/image/locale/guadeloupe.jpeg"
       image-alt="Karibsen, agence web accompagnant les entreprises de Guadeloupe"
     />
 
-    <ServicesSection
-      class="mt-24 md:mt-32"
-      title="Le bon format pour faire progresser votre présence en ligne."
-      description="Site vitrine, refonte ou application sur mesure : nous choisissons avec vous le format qui sert vraiment votre activité en Guadeloupe, plutôt que celui qui remplit un devis."
-    />
+    <div class="mt-24 md:mt-32">
+      <FocusSection
+        title="Ce que nous construisons pour les entreprises guadeloupéennes."
+        description="Trois besoins reviennent presque à chaque projet sur l’île. Votre activité en concerne souvent deux à la fois."
+        :items="focus"
+      />
+    </div>
 
     <WhyKaribsenSection
-      title="Pourquoi choisir Karibsen pour votre projet web en Guadeloupe ?"
+      title="Travailler avec une agence guadeloupéenne installée en métropole."
       image="/assets/image/corentin.jpg"
       image-alt="Corentin, fondateur guadeloupéen de Karibsen"
       image-position="left"
       :paragraphs="[
-        'Nous sommes originaires de l’île. Vous n’avez pas à expliquer votre contexte depuis le début : les habitudes locales, les saisons et la manière dont vos clients cherchent, nous les connaissons déjà.',
+        'Nous sommes originaires de l’île. Vous n’avez pas à expliquer votre contexte depuis le début : les habitudes locales, les saisons touristiques et la manière dont vos clients cherchent, nous les connaissons déjà.',
+        'Être basés en métropole ne nous éloigne pas de votre projet, cela vous donne accès aux mêmes standards techniques que les entreprises hexagonales, sans les tarifs d’une grosse structure.',
         'Vous travaillez avec un interlocuteur unique, disponible en visioconférence et par écrit. Rien ne se perd entre plusieurs intervenants, et vous savez toujours où en est votre projet.',
-        'Chaque site est conçu sur mesure. La structure des pages, les contenus et l’interface sont construits autour de votre activité, pas autour d’un modèle réutilisé d’un client à l’autre.',
-        'Le décalage horaire joue en votre faveur : ce que vous nous envoyez en fin de journée est traité pendant votre nuit, et vous retrouvez les avancées dès le lendemain matin.'
+        'Chaque site est conçu sur mesure. La structure des pages, les contenus et l’interface sont construits autour de votre activité, pas autour d’un modèle réutilisé d’un client à l’autre.'
       ]"
     />
 

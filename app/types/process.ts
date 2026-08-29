@@ -1,6 +1,8 @@
+export type ProcessAnimation = 'call' | 'skeleton' | 'website' | 'online'
+
 export interface ProcessStep {
   title: string
   description: string
-  image?: string
-  imageAlt?: string
+  /** Illustration animée. Sans elle, l'étape affiche son numéro. */
+  animation?: ProcessAnimation
 }

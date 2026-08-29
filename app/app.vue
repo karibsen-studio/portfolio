@@ -1,6 +1,6 @@
 <script setup>
-import AppFooter from '~/components/layouts/footer/AppFooter.vue'
-import AppNavbar from '~/components/layouts/navbar/AppNavbarElastic.vue'
+import AppFooter from '~/components/layout/footer/AppFooter.vue'
+import AppNavbar from '~/components/layout/navbar/AppNavbarElastic.vue'
 import { MotionConfig } from 'motion-v'
 
 const schemaOrg = {
@@ -62,17 +62,7 @@ const schemaOrg = {
 }
 
 useHead({
-  titleTemplate: (title) => {
-    const pageTitle = title?.trim()
-
-    if (!pageTitle || pageTitle === 'Karibsen') {
-      return 'Karibsen'
-    }
-
-    return /\|\s*Karibsen$/i.test(pageTitle)
-      ? pageTitle
-      : `${pageTitle} | Karibsen`
-  },
+  titleTemplate: '%s',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
   ],
@@ -112,7 +102,7 @@ useHead(() => {
 })
 
 const description = 'Karibsen conçoit des sites internet, des applications web et des expériences numériques sur mesure, rapides et pensées pour durer.'
-const ogImage = 'https://karibsen.fr/assets/image/og-image.png'
+const ogImage = 'https://karibsen.fr/assets/image/og-image.jpg'
 
 useSeoMeta({
   description,
@@ -126,13 +116,22 @@ useSeoMeta({
   ogImageHeight: 630,
   ogImageAlt: 'Karibsen, studio de création de sites et d’applications web',
   twitterCard: 'summary_large_image',
-  twitterImage: ogImage
+  twitterImage: ogImage,
+  themeColor: '#ff5c0a',
+  colorScheme: 'only light'
 })
 </script>
 
 <template>
   <MotionConfig reduced-motion="user">
     <UApp>
+      <a
+        href="#contenu"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-1001 focus:rounded-sm focus:bg-black focus:px-4 focus:py-2 focus:font-sans focus:font-medium focus:text-white focus:outline-2 focus:outline-offset-2 focus:outline-theme-500"
+      >
+        Aller au contenu
+      </a>
+
       <div class="absolute top-0 left-1/2 h-full w-full max-w-300 -translate-x-1/2 bg-white" />
 
       <div
@@ -194,7 +193,11 @@ useSeoMeta({
         </div>
       </div>
       <AppNavbar />
-      <UMain>
+      <UMain
+        id="contenu"
+        tabindex="-1"
+        class="outline-none"
+      >
         <NuxtRouteAnnouncer />
         <NuxtPage />
       </UMain>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 
 withDefaults(defineProps<{
   title?: string
@@ -22,7 +22,7 @@ const headingId = useId()
   >
     <div class="mx-auto grid max-w-300 gap-10 md:grid-cols-2 md:items-stretch lg:gap-20">
       <article
-        class="flex flex-col gap-8"
+        class="flex flex-col gap-8 pl-4"
         :class="imagePosition === 'left' ? 'md:order-2' : 'md:order-1'"
       >
         <Heading
@@ -49,6 +49,7 @@ const headingId = useId()
       >
         <NuxtImg
           :src="image"
+          format="webp"
           :alt="imageAlt"
           width="960"
           height="1200"

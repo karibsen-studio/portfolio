@@ -12,5 +12,12 @@ export default withNuxt(
       '**/public',
       '**/.data'
     ]
-  })
+  }),
+  {
+    // Le nom du fichier doit correspondre au nom du champ personnalisé Eponyme.
+    files: ['eponyme/fields/*.vue'],
+    rules: {
+      'vue/multi-word-component-names': 'off'
+    }
+  }
 )

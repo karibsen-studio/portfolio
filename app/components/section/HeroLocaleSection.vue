@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 import { SmoothCorners } from '@lisse/vue'
 import Marquee from '~/components/ui/Marquee.vue'
 import Tag from '~/components/ui/tags/Tag.vue'
@@ -26,6 +26,7 @@ withDefaults(defineProps<{
     >
       <NuxtImg
         :src="image"
+        format="webp"
         :alt="imageAlt"
         draggable="false"
         class="size-full select-none object-cover"

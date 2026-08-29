@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import CheckList from '~/components/ui/list/CheckList.vue'
 import type { RouteLocationRaw } from 'vue-router'
 import { motion } from 'motion-v'
-import Heading from '~/components/ui/heading.vue'
+import Heading from '~/components/ui/Heading.vue'
 import PressButton from '~/components/ui/PressButton.vue'
 
 const props = withDefaults(defineProps<{
@@ -111,20 +112,13 @@ onBeforeUnmount(() => {
           </p>
         </div>
 
-        <ul class="flex flex-col gap-2">
-          <li
-            v-for="item in includes"
-            :key="item"
-            class="flex items-start gap-2 text-sm font-medium text-foreground-200"
-          >
-            <UIcon
-              name="heroicons:check-20-solid"
-              aria-hidden="true"
-              class="mt-0.5 size-4 shrink-0 text-theme-500"
-            />
-            {{ item }}
-          </li>
-        </ul>
+        <CheckList
+          :items="includes"
+          icon="heroicons:check-20-solid"
+          icon-class="text-theme-500"
+          size="sm"
+          class="text-sm font-medium text-foreground-200"
+        />
 
         <div class="flex w-full flex-col gap-3 border-t border-border-100 pt-4">
           <PressButton
