@@ -51,6 +51,11 @@ useSeoMeta({
 
     <div class="karibsen-prose max-w-180 mx-auto">
       <EponymeRichText :html="project?.text" />
+
+      <p v-if="slug === 'as-chelles-athletisme'">
+        Pour un projet similaire, découvrez notre accompagnement en
+        <NuxtLink to="/creation-site-web-chelles">création de site web à Chelles</NuxtLink>.
+      </p>
     </div>
 
     <div class="mb-20">

@@ -12,7 +12,7 @@ useSeoMeta({
   ogDescription: description
 })
 
-const { entries, pending } = useEponymeCollection('articles', {
+const { entries, pending } = await useEponymeCollection('articles', {
   orderBy: 'publishedOn',
   order: 'desc'
 })

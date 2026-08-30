@@ -63,7 +63,16 @@ const accordionItems = computed<AccordionItem[]>(() => props.items.map(item => (
           item: 'border-t-border-100 bg-white'
         }"
         :items="accordionItems"
-      />
+      >
+        <template #body="{ item }">
+          <!-- eslint-disable vue/no-v-html -- réponses rédigées dans les pages, aucune saisie visiteur -->
+          <div
+            class="[&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-theme-600 [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-offset-2 [&_a:focus-visible]:outline-theme-600"
+            v-html="item.content"
+          />
+          <!-- eslint-enable vue/no-v-html -->
+        </template>
+      </UAccordion>
     </div>
 
     <Marquee

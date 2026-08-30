@@ -45,7 +45,7 @@ const process: ProcessStep[] = [
 const faq = [
   {
     question: 'Travaillez-vous uniquement avec des entreprises de Seine-et-Marne ?',
-    answer: 'Nous sommes basés à Chelles et travaillons volontiers avec les acteurs de Seine-et-Marne. Nous accompagnons aussi des projets plus éloignés, avec le même niveau de suivi et des échanges simples à distance lorsque c’est le plus pratique.'
+    answer: 'Basé à Chelles, Karibsen accompagne les entreprises du secteur dans leur <a class="font-semibold" href="/creation-site-web-chelles">création de site web à Chelles</a>, ainsi que les projets partout en Seine-et-Marne.'
   },
   {
     question: 'Quels projets peut prendre en charge votre agence web ?',
