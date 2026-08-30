@@ -51,6 +51,7 @@ export default defineEventHandler(async (event) => {
     const markdown = await renderPageMarkdown(event, target)
     setMarkdownHeaders(event)
     setResponseHeader(event, 'cache-control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400')
+    setMarkdownCacheTags(event)
     // `send` ends the request here: middleware that merely returns a value is asking
     // Nitro to guess, and the route handler behind it would still run.
     return send(event, markdown)
@@ -64,6 +65,20 @@ export default defineEventHandler(async (event) => {
     return send(event, renderNotFoundMarkdown(target))
   }
 })
+
+/**
+ * The Markdown is rendered from the page's own HTML, so a publication makes the `.md`
+ * exactly as stale as the page itself. A CDN only purges by tag, so the response carries
+ * Eponyme's root tag — the one `server/plugins/eponyme-purge.ts` invalidates on every
+ * status change. Without it, a `.md` cached while the collection was still empty kept
+ * being served for the whole `stale-while-revalidate` window.
+ */
+function setMarkdownCacheTags(event: H3Event): void {
+  const value = getEponymeCacheTags('markdown').join(',')
+  // Vercel reads its own header; `Cache-Tag` is what Cloudflare and Fastly-style CDNs read.
+  setResponseHeader(event, 'vercel-cache-tag', value)
+  setResponseHeader(event, 'cache-tag', value)
+}
 
 function setMarkdownHeaders(event: H3Event): void {
   setResponseHeader(event, 'content-type', 'text/markdown; charset=utf-8')
