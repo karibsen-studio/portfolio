@@ -16,7 +16,7 @@ const route = useRoute()
 
 const activeTag = computed(() => typeof route.query.tag === 'string' ? route.query.tag : '')
 
-const { entries, pending } = useEponymeCollection('realisations', {
+const { entries, pending } = await useEponymeCollection('realisations', {
   orderBy: 'publishedAt',
   order: 'desc'
 })
