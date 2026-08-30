@@ -25,6 +25,7 @@ if (error.value || !article.value) {
 }
 
 const seo = computed(() => resolveEponymeSeo(article.value?.seo as EponymeSeoValue | undefined))
+const cta = computed(() => article.value?.cta)
 
 useSeoMeta({
   title: () => seo.value.title || `${article.value?.title} | Karibsen`,
@@ -90,8 +91,11 @@ const publishedLabel = computed(() => {
     </article>
 
     <CTASection
-      cta-label="Démarrer un projet"
-      cta-to="/demarrer-un-projet"
+      v-if="cta"
+      :cta-label="cta?.label"
+      :cta-to="cta?.to.href"
+      :title="cta?.title"
+      :description="cta?.description"
     />
   </div>
 </template>
