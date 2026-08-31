@@ -10,7 +10,6 @@ useSeoMeta({
   description,
   ogTitle: title,
   ogDescription: description,
-  robots: 'noindex, follow'
 })
 
 const sections = [

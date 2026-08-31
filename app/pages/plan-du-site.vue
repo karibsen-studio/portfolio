@@ -12,8 +12,13 @@ useSeoMeta({
   ogDescription: description
 })
 
-const { entries: realisations } = useEponymeCollection('realisations', { orderBy: 'title', order: 'asc' })
-const { entries: articles } = useEponymeCollection('articles', { orderBy: 'publishedOn', order: 'desc' })
+const { entries: realisations } = await useEponymeCollection('realisations', { orderBy: 'title', order: 'asc' })
+const { entries: articles } = await useEponymeCollection('articles', { orderBy: 'publishedOn', order: 'desc' })
+const { entries: jobs } = await useEponymeCollection('jobs', {
+  orderBy: 'publishedAt',
+  order: 'desc',
+  where: { open: true }
+})
 
 const staticGroups = [
   {
@@ -69,6 +74,13 @@ const groups = computed(() => [
     links: articles.value.map(entry => ({
       label: entry.data.title,
       to: `/blog/${entry.slug}`
+    }))
+  },
+  {
+    title: 'Nos offres d’emploi',
+    links: jobs.value.map(entry => ({
+      label: entry.data.title,
+      to: `/recrutement/${entry.slug}`
     }))
   }
 ].filter(group => group.links.length > 0))

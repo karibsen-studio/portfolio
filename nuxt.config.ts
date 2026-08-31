@@ -1,5 +1,4 @@
 import { fileURLToPath } from 'node:url'
-
 import { fr } from '@eponyme/locale/fr'
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -32,6 +31,14 @@ export default defineNuxtConfig({
 
   ui: {
     colorMode: false
+  },
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        "@lisse/vue"
+      ]
+    }
   },
 
   routeRules: isProd
@@ -142,7 +149,6 @@ export default defineNuxtConfig({
     exclude: [
       '/__eponyme',
       '/__eponyme/**',
-      '/mentions-legales',
       '/seo/sitemap'
     ]
   }

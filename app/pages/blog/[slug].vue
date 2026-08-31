@@ -10,7 +10,7 @@ definePageMeta({
 const route = useRoute()
 const slug = String(route.params.slug)
 
-const { data, error, pending, refresh } = useEponymeCollectionEntry('articles', slug)
+const { data, error, pending, refresh, publishedAt } = useEponymeCollectionEntry('articles', slug)
 
 const article = computed(() => data.value?.data)
 
@@ -34,6 +34,83 @@ useSeoMeta({
   ogDescription: () => seo.value.ogDescription,
   ogImage: () => seo.value.image || article.value?.cover
 })
+
+const siteUrl = useSiteConfig().url.replace(/\/+$/, '')
+const articleUrl = `${siteUrl}/blog/${slug}`
+
+const absoluteUrl = (value?: string) => {
+  if (!value) return undefined
+  return /^https?:\/\//.test(value) ? value : `${siteUrl}${value.startsWith('/') ? '' : '/'}${value}`
+}
+
+const schemaOrg = computed(() => {
+  const entry = article.value
+  if (!entry) return null
+
+  const image = absoluteUrl(seo.value.image || entry.cover)
+  const tags = (entry.tags ?? []) as string[]
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': `${articleUrl}#article`,
+        'headline': entry.title,
+        'name': entry.title,
+        'description': seo.value.description || entry.excerpt,
+        'url': articleUrl,
+        'mainEntityOfPage': { '@id': `${articleUrl}#webpage` },
+        'inLanguage': 'fr',
+        ...(image ? { image: [image] } : {}),
+        ...(entry.publishedOn ? { datePublished: entry.publishedOn } : {}),
+        'dateModified': publishedAt.value || entry.publishedOn || undefined,
+        ...(tags.length ? { keywords: tags } : {}),
+        ...(entry.readingTime ? { timeRequired: `PT${entry.readingTime}M` } : {}),
+        'author': { '@id': 'https://karibsen.fr/#identity' },
+        'publisher': { '@id': 'https://karibsen.fr/#identity' },
+        'isPartOf': { '@id': 'https://karibsen.fr/#website' }
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${articleUrl}#webpage`,
+        'url': articleUrl,
+        'name': seo.value.title || entry.title,
+        'isPartOf': { '@id': 'https://karibsen.fr/#website' },
+        'primaryImageOfPage': image ? { '@id': `${articleUrl}#primaryimage` } : undefined,
+        'breadcrumb': { '@id': `${articleUrl}#breadcrumb` }
+      },
+      ...(image
+        ? [{
+            '@type': 'ImageObject',
+            '@id': `${articleUrl}#primaryimage`,
+            'url': image,
+            'contentUrl': image,
+            'caption': entry.title
+          }]
+        : []),
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${articleUrl}#breadcrumb`,
+        'itemListElement': [
+          { '@type': 'ListItem', 'position': 1, 'name': 'Accueil', 'item': `${siteUrl}/` },
+          { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${siteUrl}/blog` },
+          { '@type': 'ListItem', 'position': 3, 'name': entry.title }
+        ]
+      }
+    ]
+  }
+})
+
+useHead(() => ({
+  script: schemaOrg.value
+    ? [{
+        key: 'schema-org-article',
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify(schemaOrg.value)
+      }]
+    : []
+}))
 
 const dateFormatter = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' })
 

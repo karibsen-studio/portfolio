@@ -14,7 +14,7 @@ useSeoMeta({
   ogDescription: description
 })
 
-const { entries, pending } = useEponymeCollection('jobs', {
+const { entries, pending } = await useEponymeCollection('jobs', {
   orderBy: 'publishedAt',
   order: 'desc',
   where: {

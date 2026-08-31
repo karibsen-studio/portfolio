@@ -17,12 +17,12 @@ useSeoMeta({
   ogDescription: seoDescription
 })
 
-const { data: homepage } = useEponyme('homepage')
+const { data: homepage } = await useEponyme('homepage')
 
 const hero = computed(() => homepage.value?.hero)
 const faq = computed(() => homepage.value?.faq)
 
-const { entries: realisations } = useEponymeCollection('realisations', { take: 6 })
+const { entries: realisations } = await useEponymeCollection('realisations', { take: 6 })
 
 const projects = computed(() => realisations.value.map(entry => ({
   name: entry.data.name,

@@ -29,7 +29,7 @@ const publishedLabel = computed(() => {
   >
     <div
       v-if="cover"
-      class="relative aspect-video overflow-hidden bg-black"
+      class="relative aspect-video overflow-hidden bg-linear-to-b from-[#F6F6F6] to-[#EEEEEE]"
     >
       <NuxtImg
         :src="cover"
