@@ -370,6 +370,30 @@ export default defineEponymeConfig({
       })
     }
   }),
+  redirects: collection({
+    label: 'Liens courts',
+    description: 'Redirections /r/… modifiables sans redéploiement. Dépublier un lien le désactive.',
+    addLabel: '+ Nouveau lien',
+    titleField: 'campaign',
+    slugField: 'slug',
+    fields: {
+      campaign: field.string({
+        label: 'Campagne',
+        description: 'À quoi sert ce lien : flyer Chelles, bio Instagram, carte de visite…',
+        required: true,
+        maxLength: 80
+      }),
+      slug: field.slug({
+        label: 'Slug',
+        description: 'L’adresse sera /r/<slug>.',
+        required: true
+      }),
+      destination: field.url({
+        label: 'Destination',
+        required: true
+      })
+    }
+  }),
   contact: form({
     label: 'Formulaire de contact',
     description: 'Formulaire de contact pour demander un site',

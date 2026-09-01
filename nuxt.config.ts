@@ -9,6 +9,13 @@ const realisationsTag = {
   'Cache-Tag': 'eponyme:realisations'
 }
 
+const goRedirects = {
+  '/go/linkedin': { redirect: { to: 'https://www.linkedin.com/company/104961685', statusCode: 302 } },
+  '/go/instagram': { redirect: { to: 'https://www.instagram.com/karibsen.studio/', statusCode: 302 } },
+  '/go/x': { redirect: { to: 'https://x.com/karibsenstudios', statusCode: 302 } },
+  '/go/whatsapp': { redirect: { to: 'https://wa.me/33749348748', statusCode: 302 } }
+} as const
+
 export default defineNuxtConfig({
 
   modules: [
@@ -41,6 +48,8 @@ export default defineNuxtConfig({
 
   routeRules: isProd
     ? {
+        ...goRedirects,
+
         '/': { isr: 3600 },
         '/recrutement': { isr: 86400 },
         '/recrutement/**': { isr: 86400 },
@@ -89,7 +98,7 @@ export default defineNuxtConfig({
         '/articles': { redirect: { to: '/blog', statusCode: 301 } },
         '/articles/**': { redirect: { to: '/blog/**', statusCode: 301 } }
       }
-    : {},
+    : { ...goRedirects },
 
   compatibilityDate: '2026-06-30',
 
@@ -181,7 +190,9 @@ export default defineNuxtConfig({
     exclude: [
       '/__eponyme',
       '/__eponyme/**',
-      '/seo/sitemap'
+      '/seo/sitemap',
+      '/r/**',
+      '/go/**'
     ]
   }
 })
