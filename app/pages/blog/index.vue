@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ArticleGrid from '~/components/ui/article/ArticleGrid.vue'
 import SectionTitle from '~/components/section/SectionTitle.vue'
+import TagFilter from '~/components/ui/TagFilter.vue'
 
 const title = 'Karibsen: Blog sur la création de sites web et le SEO'
 const description = 'Nos réflexions sur la création de sites web, le référencement, les CMS et les outils qui font la différence. Retours d’expérience et cas concrets.'
@@ -11,6 +12,8 @@ useSeoMeta({
   ogTitle: title,
   ogDescription: description
 })
+
+const activeTag = ref('')
 
 const { entries, pending } = await useEponymeCollection('articles', {
   orderBy: 'publishedOn',
@@ -30,27 +33,11 @@ const articles = computed(() => entries.value.map(entry => ({
   readingTime: entry.data.readingTime
 })))
 
-const tags = computed(() => {
-  const seen = new Set<string>()
-
-  for (const article of articles.value) {
-    for (const tag of article.tags)
-      seen.add(tag)
-  }
-
-  return [...seen].sort((a, b) => a.localeCompare(b, 'fr'))
-})
-
-const activeTag = ref<string | null>(null)
-
-watch(tags, (list) => {
-  if (activeTag.value && !list.includes(activeTag.value))
-    activeTag.value = null
-})
+const tags = computed(() => sortTags(articles.value.flatMap(article => article.tags)))
 
 const displayedArticles = computed(() => (
   activeTag.value
-    ? articles.value.filter(article => article.tags.includes(activeTag.value!))
+    ? articles.value.filter(article => article.tags.includes(activeTag.value))
     : articles.value
 ))
 </script>
@@ -77,38 +64,12 @@ const displayedArticles = computed(() => (
         </template>
       </SectionTitle>
 
-      <div
-        v-if="tags.length"
-        class="flex flex-wrap justify-center gap-2"
-        role="group"
-        aria-label="Filtrer par catégorie"
-      >
-        <button
-          type="button"
-          class="border px-4 py-2 font-sans text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-600"
-          :class="activeTag === null
-            ? 'border-black bg-black text-white'
-            : 'border-border-100 cursor-pointer bg-white text-black hover:border-black/30'"
-          :aria-pressed="activeTag === null"
-          @click="activeTag = null"
-        >
-          Tout
-        </button>
-
-        <button
-          v-for="tag in tags"
-          :key="tag"
-          type="button"
-          class="border px-4 py-2 font-sans text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-600"
-          :class="activeTag === tag
-            ? 'border-black bg-black text-white'
-            : 'border-border-100 cursor-pointer bg-white text-black hover:border-black/30'"
-          :aria-pressed="activeTag === tag"
-          @click="activeTag = tag"
-        >
-          {{ tag }}
-        </button>
-      </div>
+      <TagFilter
+        v-model="activeTag"
+        :tags="tags"
+        label="Filtrer par catégorie"
+        all-label="Tout"
+      />
 
       <p
         v-if="pending"

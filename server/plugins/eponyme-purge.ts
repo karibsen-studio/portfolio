@@ -13,6 +13,21 @@ interface PurgeContext {
   collection?: { name: string }
 }
 
+/**
+ * `getEponymeCacheTags()` place toujours `eponyme` en tête, et ce tag est porté par
+ * toutes les réponses : le passer à la purge viderait le cache du site entier à chaque
+ * publication. On le retire pour ne purger que les pages réellement concernées.
+ */
+const GLOBAL_TAG = 'eponyme'
+
+/**
+ * Deux réponses agrègent toutes les collections sans porter de tag d'entrée : le sitemap
+ * (tagué `eponyme:sitemap`, un nom qu'aucune entrée ne porte) et le plan du site (tagué à
+ * la main dans `nuxt.config.ts`). Sans le tag global, plus rien ne les invalide : on les
+ * ajoute donc à chaque purge.
+ */
+const ALWAYS_PURGE = ['eponyme:sitemap', 'eponyme:plan-du-site']
+
 const PURGE_HOOKS = [
   'eponyme:entry:published',
   'eponyme:entry:unpublished',
@@ -28,8 +43,13 @@ export default defineNitroPlugin((nitroApp) => {
   const purge = async ({ name, collection }: PurgeContext) => {
     if (!process.env.VERCEL) return
 
+    const tags = [
+      ...getEponymeCacheTags(name, collection).filter(tag => tag !== GLOBAL_TAG),
+      ...ALWAYS_PURGE
+    ]
+
     try {
-      await invalidateByTag(getEponymeCacheTags(name, collection))
+      await invalidateByTag(tags)
     } catch (error) {
       console.error('[eponyme] purge CDN échouée, on retombe sur l’expiration', error)
     }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseSection from '~/components/section/BaseSection.vue'
 import OtherServicesSection from '~/components/section/OtherServicesSection.vue'
+import PageBreadcrumb from '~/components/ui/PageBreadcrumb.vue'
 import SectionTitle from '~/components/section/SectionTitle.vue'
 
 definePageMeta({
@@ -24,6 +25,12 @@ if (error.value || !project.value) {
   })
 }
 
+const breadcrumb = computed<BreadcrumbTrailItem[]>(() => [
+  { label: 'Accueil', to: '/' },
+  { label: 'Réalisations', to: '/realisations' },
+  { label: project.value?.name ?? 'Étude de cas' }
+])
+
 const title = () => project.value?.name
   ? `Karibsen: Étude de cas ${project.value.name}`
   : 'Karibsen: Étude de cas'
@@ -40,6 +47,10 @@ useSeoMeta({
 
 <template>
   <BaseSection class="relative z-10 pt-32 md:pt-48 flex w-full flex-col gap-9">
+    <div class="max-w-180 mx-auto w-full">
+      <PageBreadcrumb :items="breadcrumb" />
+    </div>
+
     <SectionTitle
       heading="h1"
       size="h2"

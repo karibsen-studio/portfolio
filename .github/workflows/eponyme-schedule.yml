@@ -1,0 +1,25 @@
+name: eponyme-schedule
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: eponyme-schedule
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Déclencher les publications programmées
+        run: |
+          curl --fail-with-body --silent --show-error \
+            --request POST \
+            --header "Authorization: Bearer $EPONYME_CRON_SECRET" \
+            "$SITE_URL/api/cron/eponyme-schedule"
+        env:
+          EPONYME_CRON_SECRET: ${{ secrets.EPONYME_CRON_SECRET }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://karibsen.fr' }}

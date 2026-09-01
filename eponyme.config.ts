@@ -1,4 +1,5 @@
 import { collection, defineEponymeConfig, field, form, today } from '@karibsen/eponyme/config'
+
 import { callToActionBlock } from './eponyme/blocks/callToActionBlocks'
 
 export default defineEponymeConfig({

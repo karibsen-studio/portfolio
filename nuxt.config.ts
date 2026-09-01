@@ -1,4 +1,5 @@
 import { fileURLToPath } from 'node:url'
+
 import { fr } from '@eponyme/locale/fr'
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -33,24 +34,25 @@ export default defineNuxtConfig({
     colorMode: false
   },
 
-  vite: {
-    optimizeDeps: {
-      include: [
-        "@lisse/vue"
-      ]
-    }
-  },
-
   routeRules: isProd
     ? {
-        '/': { swr: 60, isr: 60 },
-        '/recrutement': { swr: 600, isr: 600 },
-        '/recrutement/**': { swr: 600, isr: 600 },
-        '/realisations': { swr: 60, isr: 60 },
-        '/realisations/**': { swr: 60, isr: 60 },
+        '/': { isr: 3600 },
+        '/recrutement': { isr: 86400 },
+        '/recrutement/**': { isr: 86400 },
+        '/realisations': { isr: 86400 },
+        '/realisations/**': { isr: 86400 },
 
-        '/blog': { swr: 60, isr: 60 },
-        '/blog/**': { swr: 60, isr: 60 },
+        '/blog': { isr: 86400 },
+        '/blog/**': { isr: 86400 },
+
+
+        '/plan-du-site': {
+          isr: 86400,
+          headers: {
+            'Vercel-Cache-Tag': 'eponyme:plan-du-site',
+            'Cache-Tag': 'eponyme:plan-du-site'
+          }
+        },
 
         '/start-a-project': { redirect: { to: '/demarrer-un-projet', statusCode: 301 } },
         '/devis': { redirect: { to: '/demarrer-un-projet', statusCode: 301 } },
@@ -76,6 +78,14 @@ export default defineNuxtConfig({
     preset: 'vercel'
   },
 
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@lisse/vue'
+      ]
+    }
+  },
+
   hooks: {
     /**
      * Runs our 404 handler before Nuxt's, without replacing it: `nitro.errorHandler`
@@ -95,6 +105,9 @@ export default defineNuxtConfig({
     prismaClient: '~~/server/utils/prisma',
     dashboardPath: '/__eponyme',
     locale: fr(),
+    rateLimits: {
+      formGlobal: 1000
+    },
     previewPaths: {
       homepage: '/',
       recrutement: '/recrutement',

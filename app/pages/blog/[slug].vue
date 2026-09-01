@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { resolveEponymeSeo, type EponymeSeoValue } from '@karibsen/eponyme/config'
 import CTASection from '~/components/section/CTASection.vue'
+import PageBreadcrumb from '~/components/ui/PageBreadcrumb.vue'
 import Heading from '~/components/ui/Heading.vue'
 
 definePageMeta({
@@ -23,6 +24,12 @@ if (error.value || !article.value) {
     fatal: true
   })
 }
+
+const breadcrumb = computed<BreadcrumbTrailItem[]>(() => [
+  { label: 'Accueil', to: '/' },
+  { label: 'Blog', to: '/blog' },
+  { label: article.value?.title ?? 'Article' }
+])
 
 const seo = computed(() => resolveEponymeSeo(article.value?.seo as EponymeSeoValue | undefined))
 const cta = computed(() => article.value?.cta)
@@ -92,11 +99,7 @@ const schemaOrg = computed(() => {
       {
         '@type': 'BreadcrumbList',
         '@id': `${articleUrl}#breadcrumb`,
-        'itemListElement': [
-          { '@type': 'ListItem', 'position': 1, 'name': 'Accueil', 'item': `${siteUrl}/` },
-          { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${siteUrl}/blog` },
-          { '@type': 'ListItem', 'position': 3, 'name': entry.title }
-        ]
+        'itemListElement': breadcrumbItemList(breadcrumb.value, siteUrl)
       }
     ]
   }
@@ -124,6 +127,11 @@ const publishedLabel = computed(() => {
 
 <template>
   <div class="pb-24 pt-32 md:pt-48">
+    <PageBreadcrumb
+      :items="breadcrumb"
+      class="relative z-10 mx-auto mb-10 max-w-3xl px-4 md:px-8"
+    />
+
     <article class="relative z-10 mx-auto flex max-w-3xl flex-col gap-10 px-4 md:px-8">
       <header class="flex flex-col gap-5">
         <p class="flex items-center gap-2 font-sans text-sm font-medium text-foreground-300">
