@@ -50,8 +50,11 @@ const sections = [
   {
     title: 'Cookies et mesure d’audience',
     paragraphs: [
-      'Ce site ne dépose aucun cookie publicitaire ni traceur tiers à des fins de profilage.',
-      'Seules des mesures d’audience anonymes peuvent être collectées afin de comprendre la fréquentation du site. Elles ne permettent pas de vous identifier.'
+      'Ce site ne dépose aucun cookie, ni publicitaire, ni de mesure d’audience. Aucun traceur tiers n’y est intégré et aucun profilage n’est réalisé.',
+      'La fréquentation est mesurée avec Vercel Web Analytics et Vercel Speed Insights, deux outils sans cookie : ils n’écrivent rien sur votre appareil. Ils traitent votre adresse IP et des données techniques (page consultée, provenance, type d’appareil) pour produire des statistiques agrégées. Ces données ne permettent pas de vous identifier, ne sont pas recoupées entre sites et ne sont pas revendues.',
+      'Ce traitement repose sur notre intérêt légitime à mesurer l’audience du site. Comme rien n’est déposé sur votre appareil, votre consentement préalable n’est pas requis. Vous pouvez néanmoins vous y opposer en écrivant à contact@karibsen.fr.',
+      'Ces mesures sont opérées par Vercel Inc., situé aux États-Unis, également hébergeur du site.',
+      'Le site utilise par ailleurs le stockage local de votre navigateur pour mémoriser la fermeture de certaines fenêtres d’information. Il s’agit d’une préférence d’affichage, sans finalité de suivi, effaçable à tout moment depuis les réglages de votre navigateur.'
     ]
   },
   {
