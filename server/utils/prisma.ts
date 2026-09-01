@@ -1,4 +1,4 @@
-import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaNeon } from '@prisma/adapter-neon'
 
 import { PrismaClient } from '../generated/prisma/client.js'
 
@@ -8,17 +8,12 @@ if (!connectionString) {
   throw new Error('DATABASE_URL is required to initialize Prisma')
 }
 
-const RELAXABLE_SSL_MODES = new Set(['require', 'prefer'])
-
-const url = new URL(connectionString)
-const sslMode = url.searchParams.get('sslmode')
-
-if (sslMode && RELAXABLE_SSL_MODES.has(sslMode) && !url.searchParams.has('sslrootcert')) {
-  url.searchParams.set('sslmode', 'no-verify')
-}
-
-const adapter = new PrismaPg({
-  connectionString: url.toString()
+const adapter = new PrismaNeon({
+  connectionString,
+  max: 1,
+  idleTimeoutMillis: 10_000,
+  connectionTimeoutMillis: 5_000,
+  allowExitOnIdle: true
 })
 
 const globalForPrisma = globalThis as unknown as {
@@ -27,6 +22,6 @@ const globalForPrisma = globalThis as unknown as {
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter })
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+globalForPrisma.prisma = prisma
 
 export default prisma
