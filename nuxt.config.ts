@@ -4,6 +4,11 @@ import { fr } from '@eponyme/locale/fr'
 
 const isProd = process.env.NODE_ENV === 'production'
 
+const realisationsTag = {
+  'Vercel-Cache-Tag': 'eponyme:realisations',
+  'Cache-Tag': 'eponyme:realisations'
+}
+
 export default defineNuxtConfig({
 
   modules: [
@@ -45,7 +50,6 @@ export default defineNuxtConfig({
         '/blog': { isr: 86400 },
         '/blog/**': { isr: 86400 },
 
-
         '/plan-du-site': {
           isr: 86400,
           headers: {
@@ -53,6 +57,21 @@ export default defineNuxtConfig({
             'Cache-Tag': 'eponyme:plan-du-site'
           }
         },
+
+        '/agence-web-bordeaux': { prerender: true },
+        '/agence-web-guadeloupe': { prerender: true },
+        '/agence-web-paris': { prerender: true },
+        '/creation-site-web-chelles': { prerender: true },
+        '/a-propos': { prerender: true },
+        '/tarifs': { prerender: true },
+        '/demarrer-un-projet': { prerender: true },
+        '/mentions-legales': { prerender: true },
+
+        '/agence-web-seine-et-marne': { isr: 86400, headers: realisationsTag },
+        '/agence-nuxt': { isr: 86400, headers: realisationsTag },
+        '/application-web-sur-mesure': { isr: 86400, headers: realisationsTag },
+        '/refonte-site-web': { isr: 86400, headers: realisationsTag },
+        '/site-vitrine': { isr: 86400, headers: realisationsTag },
 
         '/start-a-project': { redirect: { to: '/demarrer-un-projet', statusCode: 301 } },
         '/devis': { redirect: { to: '/demarrer-un-projet', statusCode: 301 } },
