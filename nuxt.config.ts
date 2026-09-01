@@ -10,9 +10,11 @@ const realisationsTag = {
 }
 
 const goRedirects = {
-  '/go/linkedin': { redirect: { to: 'https://www.linkedin.com/company/104961685', statusCode: 302 } },
-  '/go/instagram': { redirect: { to: 'https://www.instagram.com/karibsen.studio/', statusCode: 302 } },
-  '/go/x': { redirect: { to: 'https://x.com/karibsenstudios', statusCode: 302 } },
+  '/go/instagram': { redirect: { to: '/?utm_source=instagram&utm_medium=social', statusCode: 302 } },
+  '/go/linkedin': { redirect: { to: '/?utm_source=linkedin&utm_medium=social', statusCode: 302 } },
+  '/go/x': { redirect: { to: '/?utm_source=x&utm_medium=social', statusCode: 302 } },
+  '/go/corentin': { redirect: { to: '/?utm_source=corentin&utm_medium=personal', statusCode: 302 } },
+  '/go/malou': { redirect: { to: '/?utm_source=malou&utm_medium=personal', statusCode: 302 } },
   '/go/whatsapp': { redirect: { to: 'https://wa.me/33749348748', statusCode: 302 } }
 } as const
 
