@@ -29,7 +29,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@karibsen/eponyme',
     '@nuxtjs/seo',
-    '@vercel/speed-insights'
+    '@vercel/speed-insights',
+    '@vercel/analytics/nuxt'
   ],
   devtools: {
     enabled: true
