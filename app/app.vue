@@ -67,6 +67,8 @@ useHead({
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
   ],
   link: [
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
     { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png?v=202605021', sizes: '96x96' },
     { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg?v=202605021' },
     { rel: 'shortcut icon', href: '/favicon.ico?v=202605021' },
