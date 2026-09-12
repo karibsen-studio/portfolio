@@ -43,6 +43,78 @@ useSeoMeta({
   ogTitle: title,
   ogDescription: description
 })
+
+const siteUrl = useSiteConfig().url.replace(/\/+$/, '')
+const projectUrl = `${siteUrl}/realisations/${slug}`
+
+const absoluteUrl = (value?: string) => {
+  if (!value) return undefined
+  return /^https?:\/\//.test(value) ? value : `${siteUrl}${value.startsWith('/') ? '' : '/'}${value}`
+}
+
+const schemaOrg = computed(() => {
+  const entry = project.value
+  if (!entry) return null
+
+  const image = absoluteUrl(entry.image)
+  const tags = (entry.tags ?? []) as string[]
+  const locales = (entry.locales ?? []) as string[]
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CreativeWork',
+        '@id': `${projectUrl}#project`,
+        'name': entry.name,
+        'headline': entry.name,
+        'description': entry.description,
+        'url': projectUrl,
+        'mainEntityOfPage': { '@id': `${projectUrl}#webpage` },
+        'inLanguage': 'fr',
+        ...(image ? { image: [image] } : {}),
+        ...(tags.length ? { keywords: tags } : {}),
+        ...(locales.length ? { spatialCoverage: locales } : {}),
+        'creator': { '@id': 'https://karibsen.fr/#identity' },
+        'publisher': { '@id': 'https://karibsen.fr/#identity' },
+        'isPartOf': { '@id': 'https://karibsen.fr/#website' }
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${projectUrl}#webpage`,
+        'url': projectUrl,
+        'name': title(),
+        'isPartOf': { '@id': 'https://karibsen.fr/#website' },
+        'primaryImageOfPage': image ? { '@id': `${projectUrl}#primaryimage` } : undefined,
+        'breadcrumb': { '@id': `${projectUrl}#breadcrumb` }
+      },
+      ...(image
+        ? [{
+            '@type': 'ImageObject',
+            '@id': `${projectUrl}#primaryimage`,
+            'url': image,
+            'contentUrl': image,
+            'caption': entry.name
+          }]
+        : []),
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${projectUrl}#breadcrumb`,
+        'itemListElement': breadcrumbItemList(breadcrumb.value, siteUrl)
+      }
+    ]
+  }
+})
+
+useHead(() => ({
+  script: schemaOrg.value
+    ? [{
+        key: 'schema-org-realisation',
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify(schemaOrg.value)
+      }]
+    : []
+}))
 </script>
 
 <template>

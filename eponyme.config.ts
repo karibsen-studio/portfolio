@@ -173,9 +173,14 @@ export default defineEponymeConfig({
       }),
       tags: field.tags({
         label: 'Tags',
-        suggestions: ['Site vitrine', 'Refonte', 'Application web', 'SaaS', 'E-commerce'],
+        suggestions: ['Site vitrine', 'Refonte', 'Application web', 'SaaS', 'E-commerce', 'Module Nuxt'],
         allowCustom: true,
         maxItems: 3
+      }),
+      visible: field.boolean({
+        label: 'Visible dans les listes',
+        description: 'Décochez pour retirer le projet de la page Réalisations, de l’accueil et du plan du site. Sa page reste accessible par son URL.',
+        defaultValue: true
       }),
       locales: field.tags({
         label: 'Lieux d’intervention',
