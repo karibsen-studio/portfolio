@@ -22,9 +22,11 @@ const { entries, pending } = await useEponymeCollection('realisations', {
   order: 'desc'
 })
 
-const tags = computed(() => sortTags(entries.value.flatMap(entry => entry.data.tags ?? [])))
+const visibleEntries = computed(() => entries.value.filter(entry => isRealisationVisible(entry.data)))
 
-const projects = computed(() => entries.value
+const tags = computed(() => sortTags(visibleEntries.value.flatMap(entry => entry.data.tags ?? [])))
+
+const projects = computed(() => visibleEntries.value
   .filter(entry => !activeTag.value || (entry.data.tags ?? []).includes(activeTag.value))
   .map(entry => ({
     name: entry.data.name,

@@ -22,15 +22,19 @@ const { data: homepage } = await useEponyme('homepage')
 const hero = computed(() => homepage.value?.hero)
 const faq = computed(() => homepage.value?.faq)
 
-const { entries: realisations } = await useEponymeCollection('realisations', { take: 6 })
+// On demande plus que les 6 affichés : les projets masqués sont retirés côté client.
+const { entries: realisations } = await useEponymeCollection('realisations', { take: 12 })
 
-const projects = computed(() => realisations.value.map(entry => ({
-  name: entry.data.name,
-  tags: entry.data.tags,
-  description: entry.data.description,
-  image: entry.data.image,
-  to: `/realisations/${entry.slug}`
-})))
+const projects = computed(() => realisations.value
+  .filter(entry => isRealisationVisible(entry.data))
+  .slice(0, 6)
+  .map(entry => ({
+    name: entry.data.name,
+    tags: entry.data.tags,
+    description: entry.data.description,
+    image: entry.data.image,
+    to: `/realisations/${entry.slug}`
+  })))
 </script>
 
 <template>

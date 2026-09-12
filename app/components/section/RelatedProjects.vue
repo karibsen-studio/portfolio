@@ -25,19 +25,23 @@ const headingId = useId()
 const { entries } = await useEponymeCollection('realisations', {
   orderBy: 'publishedAt',
   order: 'desc',
-  take: props.take,
+  // Marge sur `take` : les projets masqués sont retirés après coup.
+  take: props.take + 4,
   where: props.locale
     ? { locales: [props.locale] }
     : (props.tag ? { tags: [props.tag] } : undefined)
 })
 
-const projects = computed(() => entries.value.map(entry => ({
-  name: entry.data.name,
-  tags: entry.data.tags,
-  description: entry.data.description,
-  image: entry.data.image,
-  to: `/realisations/${entry.slug}`
-})))
+const projects = computed(() => entries.value
+  .filter(entry => isRealisationVisible(entry.data))
+  .slice(0, props.take)
+  .map(entry => ({
+    name: entry.data.name,
+    tags: entry.data.tags,
+    description: entry.data.description,
+    image: entry.data.image,
+    to: `/realisations/${entry.slug}`
+  })))
 
 const allProjectsLink = computed(() => props.tag
   ? { path: '/realisations', query: { tag: props.tag } }

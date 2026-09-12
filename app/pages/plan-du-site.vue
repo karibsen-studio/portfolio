@@ -64,10 +64,12 @@ const groups = computed(() => [
   ...staticGroups,
   {
     title: 'Nos réalisations',
-    links: realisations.value.map(entry => ({
-      label: entry.data.name,
-      to: `/realisations/${entry.slug}`
-    }))
+    links: realisations.value
+      .filter(entry => isRealisationVisible(entry.data))
+      .map(entry => ({
+        label: entry.data.name,
+        to: `/realisations/${entry.slug}`
+      }))
   },
   {
     title: 'Nos articles',
