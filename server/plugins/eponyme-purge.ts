@@ -39,6 +39,19 @@ const PURGE_HOOKS = [
   'eponyme:entry:purged'
 ] as const
 
+/**
+ * `invalidateByTag` résout sans rien faire quand la plateforme n'expose pas son API de purge,
+ * sans erreur ni trace. On regarde donc le contexte avant d'appeler, pour qu'une purge qui ne
+ * part pas soit lisible dans les logs au lieu de passer pour un succès.
+ */
+function purgeApiAvailable(): boolean {
+  const context = (globalThis as Record<symbol, unknown>)[Symbol.for('@vercel/request-context')] as
+    | { get?: () => { purge?: unknown } | undefined }
+    | undefined
+
+  return Boolean(context?.get?.()?.purge)
+}
+
 export default defineNitroPlugin((nitroApp) => {
   const purge = async ({ name, collection }: PurgeContext) => {
     if (!process.env.VERCEL) return
@@ -47,6 +60,11 @@ export default defineNitroPlugin((nitroApp) => {
       ...getEponymeCacheTags(name, collection).filter(tag => tag !== GLOBAL_TAG),
       ...ALWAYS_PURGE
     ]
+
+    if (!purgeApiAvailable()) {
+      console.warn('[eponyme] API de purge indisponible, les pages attendront leur expiration', { name, tags })
+      return
+    }
 
     try {
       await invalidateByTag(tags)
