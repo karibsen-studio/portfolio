@@ -103,6 +103,11 @@ export default defineNuxtConfig({
       }
     : { ...goRedirects },
 
+  experimental: {
+    // Sans cela, une page ISR et son `_payload.json` sont deux entrées de cache qui divergent.
+    payloadExtraction: 'client'
+  },
+
   compatibilityDate: '2026-06-30',
 
   nitro: {
